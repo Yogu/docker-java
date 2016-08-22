@@ -16,7 +16,7 @@ import java.util.Map;
 public class VolumeOptions implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @JsonProperty("NoCpy")
+    @JsonProperty("NoCopy")
     private Boolean noCopy;
 
     @JsonProperty("Labels")
