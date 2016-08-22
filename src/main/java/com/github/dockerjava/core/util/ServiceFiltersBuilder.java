@@ -1,5 +1,7 @@
 package com.github.dockerjava.core.util;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -47,21 +49,11 @@ public class ServiceFiltersBuilder {
         return getFilter("names");
     }
 
-    // CHECKSTYLE:OFF
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        ServiceFiltersBuilder filters1 = (ServiceFiltersBuilder) o;
-
-        return filters.equals(filters1.filters);
+        return EqualsBuilder.reflectionEquals(this, o);
 
     }
-
-    // CHECKSTYLE:ON
 
     @Override
     public int hashCode() {
