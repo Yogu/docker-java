@@ -8,25 +8,36 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.annotation.CheckForNull;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
  */
-public class ServicePlacement implements Serializable {
+public class ResourceRequirements implements Serializable {
     public static final Long serialVersionUID = 1L;
 
-    @JsonProperty("Constraints")
-    private List<String> constraints;
+    @JsonProperty("Limits")
+    private ResourceSpecs limits;
+
+    @JsonProperty("Reservations")
+    private ResourceSpecs reservations;
 
     @CheckForNull
-    public List<String> getConstraints() {
-        return constraints;
+    public ResourceSpecs getLimits() {
+        return limits;
     }
 
-    public ServicePlacement withConstraints(List<String> constraints) {
-        this.constraints = constraints;
+    public ResourceRequirements withLimits(ResourceSpecs limits) {
+        this.limits = limits;
+        return this;
+    }
+
+    @CheckForNull
+    public ResourceSpecs getReservations() {
+        return reservations;
+    }
+
+    public ResourceRequirements withReservations(ResourceSpecs reservations) {
+        this.reservations = reservations;
         return this;
     }
 

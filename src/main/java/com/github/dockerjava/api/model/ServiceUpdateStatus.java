@@ -8,62 +8,63 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.annotation.CheckForNull;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
  */
-public class ServiceRestartPolicy implements Serializable {
+public class ServiceUpdateStatus implements Serializable {
     public static final Long serialVersionUID = 1L;
 
-    @JsonProperty("Condition")
-    private ServiceRestartCondition condition;
+    @JsonProperty("State")
+    private ServiceUpdateState state;
 
-    @JsonProperty("Delay")
-    private Long delay;
+    @JsonProperty("StartedAt")
+    private Date startedAt;
 
-    @JsonProperty("MaxAttempts")
-    private Long maxAttempts;
+    @JsonProperty("CompletedAt")
+    private Date completedAt;
 
-    @JsonProperty("Window")
-    private Long window;
+    @JsonProperty("Message")
+    private String message;
 
     @CheckForNull
-    public ServiceRestartCondition getCondition() {
-        return condition;
+    public ServiceUpdateState getState() {
+        return state;
     }
 
-    public ServiceRestartPolicy withCondition(ServiceRestartCondition condition) {
-        this.condition = condition;
+    public ServiceUpdateStatus withState(ServiceUpdateState state) {
+        this.state = state;
         return this;
     }
 
     @CheckForNull
-    public Long getDelay() {
-        return delay;
+    public Date getStartedAt() {
+        return startedAt;
     }
 
-    public ServiceRestartPolicy withDelay(Long delay) {
-        this.delay = delay;
+    public ServiceUpdateStatus withStartedAt(Date startedAt) {
+        this.startedAt = startedAt;
         return this;
     }
 
     @CheckForNull
-    public Long getMaxAttempts() {
-        return maxAttempts;
+    public Date getCompletedAt() {
+        return completedAt;
     }
 
-    public ServiceRestartPolicy withMaxAttempts(Long maxAttempts) {
-        this.maxAttempts = maxAttempts;
+    public ServiceUpdateStatus withCompletedAt(Date completedAt) {
+        this.completedAt = completedAt;
         return this;
     }
 
     @CheckForNull
-    public Long getWindow() {
-        return window;
+    public String getMessage() {
+        return message;
     }
 
-    public ServiceRestartPolicy withWindow(Long window) {
-        this.window = window;
+    public ServiceUpdateStatus withMessage(String message) {
+        this.message = message;
         return this;
     }
 

@@ -6,12 +6,13 @@ import com.github.dockerjava.core.RemoteApiVersion;
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
  */
-public enum PortConfigProtocol {
+public enum ServiceUpdateState {
+    @JsonProperty("updating")
+    UPDATING,
 
-    @JsonProperty("tcp")
-    TCP,
+    @JsonProperty("paused")
+    PAUSED,
 
-    @JsonProperty("udp")
-    udp
-
+    @JsonProperty("completed")
+    COMPLETED
 }

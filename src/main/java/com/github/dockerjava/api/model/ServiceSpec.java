@@ -1,26 +1,35 @@
 package com.github.dockerjava.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.dockerjava.core.RemoteApiVersion;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import javax.annotation.CheckForNull;
+import java.io.Serializable;
+import java.util.List;
+
 /**
- * for Service
+ * @since {@link RemoteApiVersion#VERSION_1_24}
  */
-public class ServiceSpec {
+public class ServiceSpec implements Serializable {
+    public static final Long serialVersionUID = 1L;
 
     @JsonProperty("Name")
     private String name;
 
     @JsonProperty("TaskTemplate")
-    private TaskTemplate taskTemplate;
+    private TaskSpec taskTemplate;
 
     @JsonProperty("Mode")
     private ServiceModeConfig mode;
 
     @JsonProperty("UpdateConfig")
     private UpdateConfig updateConfig;
+
+    @JsonProperty("Configs")
+    private List<NetworkAttachmentConfig> networks;
 
     @JsonProperty("EndpointSpec")
     private EndpointSpec endpointSpec;
@@ -34,15 +43,17 @@ public class ServiceSpec {
         return this;
     }
 
-    public TaskTemplate getTaskTemplate() {
+    @CheckForNull
+    public TaskSpec getTaskTemplate() {
         return taskTemplate;
     }
 
-    public ServiceSpec withTaskTemplate(TaskTemplate taskTemplate) {
+    public ServiceSpec withTaskTemplate(TaskSpec taskTemplate) {
         this.taskTemplate = taskTemplate;
         return this;
     }
 
+    @CheckForNull
     public ServiceModeConfig getMode() {
         return mode;
     }
@@ -52,6 +63,7 @@ public class ServiceSpec {
         return this;
     }
 
+    @CheckForNull
     public UpdateConfig getUpdateConfig() {
         return updateConfig;
     }
@@ -61,6 +73,17 @@ public class ServiceSpec {
         return this;
     }
 
+    @CheckForNull
+    public List<NetworkAttachmentConfig> getNetworks() {
+        return networks;
+    }
+
+    public ServiceSpec withNetworks(List<NetworkAttachmentConfig> networks) {
+        this.networks = networks;
+        return this;
+    }
+
+    @CheckForNull
     public EndpointSpec getEndpointSpec() {
         return endpointSpec;
     }

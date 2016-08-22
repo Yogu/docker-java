@@ -1,11 +1,19 @@
 package com.github.dockerjava.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.dockerjava.core.RemoteApiVersion;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class EndpointVirtualIP {
+import javax.annotation.CheckForNull;
+import java.io.Serializable;
+
+/**
+ * @since {@link RemoteApiVersion#VERSION_1_24}
+ */
+public class EndpointVirtualIP implements Serializable {
+    public static final Long serialVersionUID = 1L;
 
     @JsonProperty("NetworkID")
     private String networkID;
@@ -13,6 +21,7 @@ public class EndpointVirtualIP {
     @JsonProperty("Addr")
     private String addr;
 
+    @CheckForNull
     public String getNetworkID() {
         return networkID;
     }
@@ -22,6 +31,7 @@ public class EndpointVirtualIP {
         return this;
     }
 
+    @CheckForNull
     public String getAddr() {
         return addr;
     }

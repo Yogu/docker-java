@@ -8,25 +8,37 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.annotation.CheckForNull;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
+import java.util.Map;
 
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
  */
-public class ServicePlacement implements Serializable {
-    public static final Long serialVersionUID = 1L;
+public class Driver implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    @JsonProperty("Constraints")
-    private List<String> constraints;
+    @JsonProperty("Name")
+    private String name;
+
+    @JsonProperty("Options")
+    private Map<String, String> options;
 
     @CheckForNull
-    public List<String> getConstraints() {
-        return constraints;
+    public String getName() {
+        return name;
     }
 
-    public ServicePlacement withConstraints(List<String> constraints) {
-        this.constraints = constraints;
+    public Driver withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    @CheckForNull
+    public Map<String, String> getOptions() {
+        return options;
+    }
+
+    public Driver withOptions(Map<String, String> options) {
+        this.options = options;
         return this;
     }
 

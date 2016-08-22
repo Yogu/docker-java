@@ -4,23 +4,27 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.dockerjava.core.RemoteApiVersion;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import javax.annotation.CheckForNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Used for Listing services.
+ *
+ * @since {@link RemoteApiVersion#VERSION_1_24}
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(Include.NON_NULL)
-public class Service {
+public class Service implements Serializable {
+    public static final Long serialVersionUID = 1L;
 
     @JsonProperty("ID")
     private String id;
-
-    // TODO version - { index: 17 } ???
 
     @JsonProperty("CreatedAt")
     private Date createdAt;
@@ -34,6 +38,10 @@ public class Service {
     @JsonProperty("Endpoint")
     private Endpoint endpoint;
 
+    @JsonProperty("UpdateStatus")
+    private ServiceUpdateStatus updateStatus;
+
+    @CheckForNull
     public String getId() {
         return id;
     }
@@ -43,6 +51,7 @@ public class Service {
         return this;
     }
 
+    @CheckForNull
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -52,6 +61,7 @@ public class Service {
         return this;
     }
 
+    @CheckForNull
     public Date getUpdatedAt() {
         return updatedAt;
     }
@@ -61,6 +71,7 @@ public class Service {
         return this;
     }
 
+    @CheckForNull
     public ServiceSpec getSpec() {
         return spec;
     }
@@ -70,12 +81,23 @@ public class Service {
         return this;
     }
 
+    @CheckForNull
     public Endpoint getEndpoint() {
         return endpoint;
     }
 
     public Service withEndpoint(Endpoint endpoint) {
         this.endpoint = endpoint;
+        return this;
+    }
+
+    @CheckForNull
+    public ServiceUpdateStatus getUpdateStatus() {
+        return updateStatus;
+    }
+
+    public Service withUpdateStatus(ServiceUpdateStatus updateStatus) {
+        this.updateStatus = updateStatus;
         return this;
     }
 

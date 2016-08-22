@@ -1,11 +1,19 @@
 package com.github.dockerjava.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.dockerjava.core.RemoteApiVersion;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class PortConfig {
+import javax.annotation.CheckForNull;
+import java.io.Serializable;
+
+/**
+ * @since {@link RemoteApiVersion#VERSION_1_24}
+ */
+public class PortConfig implements Serializable {
+    public static final Long serialVersionUID = 1L;
 
     @JsonProperty("Name")
     private String name;
@@ -28,6 +36,7 @@ public class PortConfig {
         return this;
     }
 
+    @CheckForNull
     public PortConfigProtocol getProtocol() {
         return protocol;
     }
@@ -37,6 +46,7 @@ public class PortConfig {
         return this;
     }
 
+    @CheckForNull
     public int getTargetPort() {
         return targetPort;
     }
@@ -46,6 +56,7 @@ public class PortConfig {
         return this;
     }
 
+    @CheckForNull
     public int getPublishedPort() {
         return publishedPort;
     }

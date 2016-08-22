@@ -1,18 +1,24 @@
 package com.github.dockerjava.api.model;
 
+import com.github.dockerjava.core.RemoteApiVersion;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import javax.annotation.CheckForNull;
+import java.io.Serializable;
+
 /**
- * For ServiceSpec
+ * @since {@link RemoteApiVersion#VERSION_1_24}
  */
-public class ServiceModeConfig {
+public class ServiceModeConfig implements Serializable {
+    public static final Long serialVersionUID = 1L;
 
     private ServiceReplicatedModeOptions replicated;
 
     private ServiceGlobalModeOptions global;
 
+    @CheckForNull
     public ServiceMode getMode() {
         if (replicated != null) {
             return ServiceMode.REPLICATED;
@@ -37,6 +43,7 @@ public class ServiceModeConfig {
         return this;
     }
 
+    @CheckForNull
     public ServiceGlobalModeOptions getGlobal() {
         return global;
     }

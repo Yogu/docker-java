@@ -8,25 +8,37 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.annotation.CheckForNull;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
  */
-public class ServicePlacement implements Serializable {
+public class NetworkAttachmentConfig implements Serializable {
     public static final Long serialVersionUID = 1L;
 
-    @JsonProperty("Constraints")
-    private List<String> constraints;
+    @JsonProperty("Target")
+    private String target;
+
+    @JsonProperty("Aliases")
+    private List<String> aliases;
 
     @CheckForNull
-    public List<String> getConstraints() {
-        return constraints;
+    public String getTarget() {
+        return target;
     }
 
-    public ServicePlacement withConstraints(List<String> constraints) {
-        this.constraints = constraints;
+    public NetworkAttachmentConfig withTarget(String target) {
+        this.target = target;
+        return this;
+    }
+
+    @CheckForNull
+    public List<String> getAliases() {
+        return aliases;
+    }
+
+    public NetworkAttachmentConfig withAliases(List<String> aliases) {
+        this.aliases = aliases;
         return this;
     }
 

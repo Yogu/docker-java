@@ -1,27 +1,29 @@
 package com.github.dockerjava.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.dockerjava.core.RemoteApiVersion;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import java.io.Serializable;
+
 /**
- * For TaskTemplate
+ * @since {@link RemoteApiVersion#VERSION_1_24}
  */
-public class TaskResourcesSpec {
+public class BindOptions implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    @JsonProperty("Limits")
-    private ResourceSpecs limits;
+    @JsonProperty("Propagation")
+    BindPropagation propagation;
 
-    @JsonProperty("Reservations")
-    private ResourceSpecs reservations;
-
-    public ResourceSpecs getLimits() {
-        return limits;
+    public BindPropagation getPropagation() {
+        return propagation;
     }
 
-    public ResourceSpecs getReservations() {
-        return reservations;
+    public BindOptions withPropagation(BindPropagation propagation) {
+        this.propagation = propagation;
+        return this;
     }
 
     @Override

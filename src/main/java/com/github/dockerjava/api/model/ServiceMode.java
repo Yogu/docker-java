@@ -1,7 +1,9 @@
 package com.github.dockerjava.api.model;
 
+import com.github.dockerjava.core.RemoteApiVersion;
+
 /**
- * Created by jan on 8/17/16.
+ * @since {@link RemoteApiVersion#VERSION_1_24}
  */
 public enum ServiceMode {
 

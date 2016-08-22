@@ -6,12 +6,10 @@ import com.github.dockerjava.core.RemoteApiVersion;
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
  */
-public enum PortConfigProtocol {
+public enum MountType {
+    @JsonProperty("bind")
+    BIND,
 
-    @JsonProperty("tcp")
-    TCP,
-
-    @JsonProperty("udp")
-    udp
-
+    @JsonProperty("volume")
+    VOLUME
 }

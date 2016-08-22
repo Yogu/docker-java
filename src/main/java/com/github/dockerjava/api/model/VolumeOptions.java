@@ -6,51 +6,48 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import javax.annotation.CheckForNull;
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
  */
-public class Endpoint implements Serializable {
-    public static final Long serialVersionUID = 1L;
+public class VolumeOptions implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    @JsonProperty("Spec")
-    private EndpointSpec spec;
+    @JsonProperty("NoCpy")
+    private Boolean noCopy;
 
-    @JsonProperty("Ports")
-    private PortConfig[] ports;
+    @JsonProperty("Labels")
+    private Map<String, String> labels;
 
-    @JsonProperty("VirtualIPs")
-    private EndpointVirtualIP[] virtualIPs;
+    @JsonProperty("DriverConfig")
+    private Driver driverConfig;
 
-    @CheckForNull
-    public EndpointSpec getSpec() {
-        return spec;
+    public Boolean getNoCopy() {
+        return noCopy;
     }
 
-    public Endpoint withSpec(EndpointSpec spec) {
-        this.spec = spec;
+    public VolumeOptions withNoCopy(Boolean noCopy) {
+        this.noCopy = noCopy;
         return this;
     }
 
-    @CheckForNull
-    public PortConfig[] getPorts() {
-        return ports;
+    public Map<String, String> getLabels() {
+        return labels;
     }
 
-    public Endpoint withPorts(PortConfig[] ports) {
-        this.ports = ports;
+    public VolumeOptions withLabels(Map<String, String> labels) {
+        this.labels = labels;
         return this;
     }
 
-    @CheckForNull
-    public EndpointVirtualIP[] getVirtualIPs() {
-        return virtualIPs;
+    public Driver getDriverConfig() {
+        return driverConfig;
     }
 
-    public Endpoint withVirtualIPs(EndpointVirtualIP[] virtualIPs) {
-        this.virtualIPs = virtualIPs;
+    public VolumeOptions withDriverConfig(Driver driverConfig) {
+        this.driverConfig = driverConfig;
         return this;
     }
 

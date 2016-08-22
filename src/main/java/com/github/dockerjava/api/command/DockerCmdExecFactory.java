@@ -117,6 +117,11 @@ public interface DockerCmdExecFactory extends Closeable {
 
     DisconnectFromNetworkCmd.Exec createDisconnectFromNetworkCmdExec();
 
+    /**
+     * Command to list all services in a docker swarm. Only applicable if docker runs in swarm mode.
+     *
+     * @since {@link RemoteApiVersion#VERSION_1_24}
+     */
     ListServicesCmd.Exec createListServicesCmdExec();
 
     @Override
