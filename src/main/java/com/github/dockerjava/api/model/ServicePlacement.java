@@ -17,14 +17,23 @@ import java.util.List;
 public class ServicePlacement implements Serializable {
     public static final Long serialVersionUID = 1L;
 
+    /**
+     * @since 1.24
+     */
     @JsonProperty("Constraints")
     private List<String> constraints;
 
+    /**
+     * @see #constraints
+     */
     @CheckForNull
     public List<String> getConstraints() {
         return constraints;
     }
 
+    /**
+     * @see #constraints
+     */
     public ServicePlacement withConstraints(List<String> constraints) {
         this.constraints = constraints;
         return this;

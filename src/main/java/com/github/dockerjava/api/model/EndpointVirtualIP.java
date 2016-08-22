@@ -16,27 +16,45 @@ import java.io.Serializable;
 public class EndpointVirtualIP implements Serializable {
     public static final Long serialVersionUID = 1L;
 
+    /**
+     * @since 1.24
+     */
     @JsonProperty("NetworkID")
     private String networkID;
 
+    /**
+     * @since 1.24
+     */
     @JsonProperty("Addr")
     private String addr;
 
+    /**
+     * @see #networkID
+     */
     @CheckForNull
     public String getNetworkID() {
         return networkID;
     }
 
+    /**
+     * @see #networkID
+     */
     public EndpointVirtualIP withNetworkID(String networkID) {
         this.networkID = networkID;
         return this;
     }
 
+    /**
+     * @see #addr
+     */
     @CheckForNull
     public String getAddr() {
         return addr;
     }
 
+    /**
+     * @see #addr
+     */
     public EndpointVirtualIP withAddr(String addr) {
         this.addr = addr;
         return this;

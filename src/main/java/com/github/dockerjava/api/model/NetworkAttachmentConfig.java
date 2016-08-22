@@ -17,27 +17,45 @@ import java.util.List;
 public class NetworkAttachmentConfig implements Serializable {
     public static final Long serialVersionUID = 1L;
 
+    /**
+     * @since 1.24
+     */
     @JsonProperty("Target")
     private String target;
 
+    /**
+     * @since 1.24
+     */
     @JsonProperty("Aliases")
     private List<String> aliases;
 
+    /**
+     * @see #target
+     */
     @CheckForNull
     public String getTarget() {
         return target;
     }
 
+    /**
+     * @see #target
+     */
     public NetworkAttachmentConfig withTarget(String target) {
         this.target = target;
         return this;
     }
 
+    /**
+     * @see #aliases
+     */
     @CheckForNull
     public List<String> getAliases() {
         return aliases;
     }
 
+    /**
+     * @see #aliases
+     */
     public NetworkAttachmentConfig withAliases(List<String> aliases) {
         this.aliases = aliases;
         return this;

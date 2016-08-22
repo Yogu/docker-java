@@ -17,27 +17,45 @@ import java.util.Map;
 public class Driver implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * @since 1.24
+     */
     @JsonProperty("Name")
     private String name;
 
+    /**
+     * @since 1.24
+     */
     @JsonProperty("Options")
     private Map<String, String> options;
 
+    /**
+     * @see #name
+     */
     @CheckForNull
     public String getName() {
         return name;
     }
 
+    /**
+     * @see #name
+     */
     public Driver withName(String name) {
         this.name = name;
         return this;
     }
 
+    /**
+     * @see #options
+     */
     @CheckForNull
     public Map<String, String> getOptions() {
         return options;
     }
 
+    /**
+     * @see #options
+     */
     public Driver withOptions(Map<String, String> options) {
         this.options = options;
         return this;
