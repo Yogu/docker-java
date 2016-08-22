@@ -29,6 +29,7 @@ public class UpdateServiceCmdExec extends AbstrSyncDockerCmdExec<UpdateServiceCm
         LOGGER.trace("POST: {}", webResource);
         webResource.request().accept(MediaType.APPLICATION_JSON)
                 .post(entity(command.getServiceSpec(), MediaType.APPLICATION_JSON)).close();
+
         return null;
     }
 }

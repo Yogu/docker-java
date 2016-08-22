@@ -1,7 +1,5 @@
 package com.github.dockerjava.core.command;
 
-import com.github.dockerjava.api.command.CreateContainerCmd;
-import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.CreateServiceCmd;
 import com.github.dockerjava.api.command.CreateServiceResponse;
 import com.github.dockerjava.api.model.ServiceSpec;

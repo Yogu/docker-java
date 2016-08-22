@@ -7,8 +7,6 @@ import com.github.dockerjava.netty.WebTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static javax.ws.rs.client.Entity.entity;
-
 /**
  * Update service settings.
  */

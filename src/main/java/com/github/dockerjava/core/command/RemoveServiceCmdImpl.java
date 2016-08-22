@@ -1,6 +1,5 @@
 package com.github.dockerjava.core.command;
 
-import com.github.dockerjava.api.command.RemoveContainerCmd;
 import com.github.dockerjava.api.command.RemoveServiceCmd;
 import com.github.dockerjava.api.exception.NotFoundException;
 

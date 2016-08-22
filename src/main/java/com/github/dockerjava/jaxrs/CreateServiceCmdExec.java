@@ -1,7 +1,5 @@
 package com.github.dockerjava.jaxrs;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.github.dockerjava.api.command.CreateNetworkResponse;
 import com.github.dockerjava.api.command.CreateServiceCmd;
 import com.github.dockerjava.api.command.CreateServiceResponse;
 import com.github.dockerjava.core.DockerClientConfig;
