@@ -8,7 +8,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.annotation.CheckForNull;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 
 /**
