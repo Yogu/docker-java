@@ -223,6 +223,12 @@ public class Info {
     private String clusterAdvertise;
 
     /**
+     * @since 1.24
+     */
+    @JsonProperty("Swarm")
+    private SwarmInfo swarm;
+
+    /**
      * @see #architecture
      */
     @CheckForNull
@@ -1019,6 +1025,22 @@ public class Info {
      */
     public Info withSystemTime(String systemTime) {
         this.systemTime = systemTime;
+        return this;
+    }
+
+    /**
+     * @see #swarm
+     */
+    @CheckForNull
+    public SwarmInfo getSwarm() {
+        return swarm;
+    }
+
+    /**
+     * @see #swarm
+     */
+    public Info withSwarm(SwarmInfo swarm) {
+        this.swarm = swarm;
         return this;
     }
 
