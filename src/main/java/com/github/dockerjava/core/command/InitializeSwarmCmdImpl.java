@@ -25,14 +25,9 @@ public class InitializeSwarmCmdImpl extends AbstrDockerCmd<InitializeSwarmCmd, V
     @JsonProperty("Spec")
     private SwarmSpec spec;
 
-    public InitializeSwarmCmdImpl(InitializeSwarmCmd.Exec exec) {
+    public InitializeSwarmCmdImpl(InitializeSwarmCmd.Exec exec, SwarmSpec swarmSpec) {
         super(exec);
-    }
-
-    @Override
-    public Void exec() {
-        // TODO
-        return super.exec();
+        this.spec = swarmSpec;
     }
 
     @Override
@@ -61,7 +56,7 @@ public class InitializeSwarmCmdImpl extends AbstrDockerCmd<InitializeSwarmCmd, V
 
     @Override
     @CheckForNull
-    public boolean isForceNewCluster() {
+    public Boolean isForceNewCluster() {
         return forceNewCluster;
     }
 
