@@ -31,5 +31,6 @@ public interface InitializeSwarmCmd extends SyncDockerCmd<Void> {
     Void exec();
 
     interface Exec extends DockerCmdSyncExec<InitializeSwarmCmd, Void> {
+
     }
 }
