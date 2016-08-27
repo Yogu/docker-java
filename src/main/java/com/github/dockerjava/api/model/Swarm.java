@@ -59,7 +59,7 @@ public class Swarm implements Serializable {
      * @since 1.24
      */
     @JsonProperty("Version")
-    private SwarmVersion version;
+    private ResourceVersion version;
 
     /**
      * @see #createdAt
@@ -145,14 +145,14 @@ public class Swarm implements Serializable {
      * @see #version
      */
     @CheckForNull
-    public SwarmVersion getVersion() {
+    public ResourceVersion getVersion() {
         return version;
     }
 
     /**
      * @see #version
      */
-    public Swarm withVersion(SwarmVersion version) {
+    public Swarm withVersion(ResourceVersion version) {
         this.version = version;
         return this;
     }

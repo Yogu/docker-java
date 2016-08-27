@@ -1,7 +1,5 @@
 package com.github.dockerjava.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.dockerjava.core.RemoteApiVersion;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -11,35 +9,55 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import javax.annotation.CheckForNull;
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class SwarmCAConfig implements Serializable {
-
-    public static final Long serialVersionUID = 1L;
+public class Driver implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**
      * @since 1.24
      */
-    @JsonProperty("NodeCertExpiry")
-    private Long nodeCertExpiry;
+    @JsonProperty("Name")
+    private String name;
 
     /**
-     * @see #nodeCertExpiry
+     * @since 1.24
+     */
+    @JsonProperty("Options")
+    private Map<String, String> options;
+
+    /**
+     * @see #name
      */
     @CheckForNull
-    public Long getNodeCertExpiry() {
-        return nodeCertExpiry;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @see #nodeCertExpiry
+     * @see #name
      */
-    public SwarmCAConfig withNodeCertExpiry(long nodeCertExpiry) {
-        this.nodeCertExpiry = nodeCertExpiry;
+    public Driver withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * @see #options
+     */
+    @CheckForNull
+    public Map<String, String> getOptions() {
+        return options;
+    }
+
+    /**
+     * @see #options
+     */
+    public Driver withOptions(Map<String, String> options) {
+        this.options = options;
         return this;
     }
 
@@ -57,4 +75,5 @@ public class SwarmCAConfig implements Serializable {
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
+
 }

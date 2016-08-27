@@ -17,29 +17,29 @@ import java.io.Serializable;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SwarmCAConfig implements Serializable {
+public class ResourceVersion implements Serializable {
 
     public static final Long serialVersionUID = 1L;
 
     /**
      * @since 1.24
      */
-    @JsonProperty("NodeCertExpiry")
-    private Long nodeCertExpiry;
+    @JsonProperty("Index")
+    private long index;
 
     /**
-     * @see #nodeCertExpiry
+     * @see #index
      */
     @CheckForNull
-    public Long getNodeCertExpiry() {
-        return nodeCertExpiry;
+    public long getIndex() {
+        return index;
     }
 
     /**
-     * @see #nodeCertExpiry
+     * @see #index
      */
-    public SwarmCAConfig withNodeCertExpiry(long nodeCertExpiry) {
-        this.nodeCertExpiry = nodeCertExpiry;
+    public ResourceVersion withIndex(long index) {
+        this.index = index;
         return this;
     }
 

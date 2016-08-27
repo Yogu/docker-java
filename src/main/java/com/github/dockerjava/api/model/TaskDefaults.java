@@ -1,5 +1,6 @@
 package com.github.dockerjava.api.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,35 +12,36 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import javax.annotation.CheckForNull;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SwarmCAConfig implements Serializable {
+public class TaskDefaults implements Serializable {
 
     public static final Long serialVersionUID = 1L;
 
     /**
      * @since 1.24
      */
-    @JsonProperty("NodeCertExpiry")
-    private Long nodeCertExpiry;
+    @JsonProperty("LogDriver")
+    private Driver logDriver;
 
     /**
-     * @see #nodeCertExpiry
+     * @see #logDriver
      */
     @CheckForNull
-    public Long getNodeCertExpiry() {
-        return nodeCertExpiry;
+    public Driver getLogDriver() {
+        return logDriver;
     }
 
     /**
-     * @see #nodeCertExpiry
+     * @see #logDriver
      */
-    public SwarmCAConfig withNodeCertExpiry(long nodeCertExpiry) {
-        this.nodeCertExpiry = nodeCertExpiry;
+    public TaskDefaults withLogDriver(Driver logDriver) {
+        this.logDriver = logDriver;
         return this;
     }
 

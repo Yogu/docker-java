@@ -12,7 +12,6 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import javax.annotation.CheckForNull;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
@@ -52,7 +51,7 @@ public class SwarmSpec implements Serializable {
      * @since 1.24
      */
     @JsonProperty("TaskDefaults")
-    private List<String> taskDefaults;
+    private TaskDefaults taskDefaults;
 
     /**
      * @since 1.24
@@ -128,14 +127,14 @@ public class SwarmSpec implements Serializable {
      * @see #taskDefaults
      */
     @CheckForNull
-    public List<String> getTaskDefaults() {
+    public TaskDefaults getTaskDefaults() {
         return taskDefaults;
     }
 
     /**
      * @see #taskDefaults
      */
-    public SwarmSpec withTaskDefaults(List<String> taskDefaults) {
+    public SwarmSpec withTaskDefaults(TaskDefaults taskDefaults) {
         this.taskDefaults = taskDefaults;
         return this;
     }
