@@ -27,7 +27,7 @@ public class LeaveSwarmCmdExec extends AbstrSyncDockerCmdExec<LeaveSwarmCmd, Voi
 
         LOGGER.trace("POST: {}", webTarget);
         webTarget.request().accept(MediaType.APPLICATION_JSON)
-                .post(entity(command, MediaType.APPLICATION_JSON)).close();
+                .post(null).close();
 
         return null;
     }
