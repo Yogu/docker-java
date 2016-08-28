@@ -1,9 +1,7 @@
 package com.github.dockerjava.core.command;
 
 
-import com.github.dockerjava.api.command.InspectSwarmCmd;
 import com.github.dockerjava.api.command.UpdateSwarmCmd;
-import com.github.dockerjava.api.model.Swarm;
 import com.github.dockerjava.api.model.SwarmSpec;
 
 import static com.google.common.base.Preconditions.checkNotNull;

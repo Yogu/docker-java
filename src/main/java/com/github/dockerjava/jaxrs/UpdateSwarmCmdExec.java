@@ -38,7 +38,7 @@ public class UpdateSwarmCmdExec extends AbstrSyncDockerCmdExec<UpdateSwarmCmd, V
 
         LOGGER.trace("POST: {} ", webResource);
         webResource.request().accept(MediaType.APPLICATION_JSON)
-                .post(entity(command, MediaType.APPLICATION_JSON));
+                .post(entity(command.getSwarmSpec(), MediaType.APPLICATION_JSON));
         return null;
     }
 }

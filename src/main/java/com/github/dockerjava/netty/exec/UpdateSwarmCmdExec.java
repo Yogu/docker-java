@@ -20,23 +20,14 @@ public class UpdateSwarmCmdExec extends AbstrSyncDockerCmdExec<UpdateSwarmCmd, V
 
     @Override
     protected Void execute(UpdateSwarmCmd command) {
-        WebTarget webResource = getBaseResource().path("/swarm/update");
-
-        if (command.getVersion() != null) {
-            webResource.queryParam("version", command.getVersion());
-        }
-
-        if (command.getRotateManagerToken() != null) {
-            webResource.queryParam("rotateManagerToken", command.getRotateManagerToken());
-        }
-
-        if (command.getRotateWorkerToken() != null) {
-            webResource.queryParam("rotateWorkerToken", command.getRotateWorkerToken());
-        }
+        WebTarget webResource = getBaseResource().path("/swarm/update")
+                .queryParam("version", command.getVersion())
+                .queryParam("rotateManagerToken", command.getRotateManagerToken())
+                .queryParam("rotateWorkerToken", command.getRotateWorkerToken());
 
         LOGGER.trace("POST: {} ", webResource);
         webResource.request().accept(MediaType.APPLICATION_JSON)
-                .post(command);
+                .post(command.getSwarmSpec());
         return null;
     }
 }

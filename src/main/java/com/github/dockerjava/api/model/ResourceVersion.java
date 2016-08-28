@@ -25,20 +25,20 @@ public class ResourceVersion implements Serializable {
      * @since 1.24
      */
     @JsonProperty("Index")
-    private long index;
+    private Long index;
 
     /**
      * @see #index
      */
     @CheckForNull
-    public long getIndex() {
+    public Long getIndex() {
         return index;
     }
 
     /**
      * @see #index
      */
-    public ResourceVersion withIndex(long index) {
+    public ResourceVersion withIndex(Long index) {
         this.index = index;
         return this;
     }
