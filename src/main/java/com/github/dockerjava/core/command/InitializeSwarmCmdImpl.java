@@ -14,7 +14,7 @@ public class InitializeSwarmCmdImpl extends AbstrDockerCmd<InitializeSwarmCmd, V
         InitializeSwarmCmd {
 
     @JsonProperty("ListenAddr")
-    private String listenAddr;
+    private String listenAddr = "0.0.0.0";
 
     @JsonProperty("AdvertiseAddr")
     private String advertiseAddr;
