@@ -1,6 +1,7 @@
 package com.github.dockerjava.core.command;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.dockerjava.api.command.JoinSwarmCmd;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -9,11 +10,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.annotation.CheckForNull;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class JoinSwarmCmdImpl extends AbstrDockerCmd<JoinSwarmCmd, Void> implements
         JoinSwarmCmd {
 
     @JsonProperty("ListenAddr")
-    private String listenAddr;
+    private String listenAddr = "0.0.0.0";
 
     @JsonProperty("AdvertiseAddr")
     private String advertiseAddr;
@@ -74,12 +76,6 @@ public class JoinSwarmCmdImpl extends AbstrDockerCmd<JoinSwarmCmd, Void> impleme
     public JoinSwarmCmd withJoinToken(String joinToken) {
         this.joinToken = joinToken;
         return this;
-    }
-
-    @Override
-    public Void exec() {
-        // TODO
-        return super.exec();
     }
 
     @Override
