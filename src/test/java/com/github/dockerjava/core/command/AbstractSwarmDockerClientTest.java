@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 
 import static com.github.dockerjava.utils.TestUtils.getVersion;
 
-public abstract class AbstractSwarmCmdExecTest extends AbstractDockerClientTest {
+public abstract class AbstractSwarmDockerClientTest extends AbstractDockerClientTest {
     protected DockerClient secondDockerClient;
     private int numberOfDockersInDocker = 0;
 
