@@ -3,14 +3,17 @@ package com.github.dockerjava.netty.exec;
 import com.github.dockerjava.api.exception.DockerException;
 import com.github.dockerjava.api.exception.NotAcceptableException;
 import com.github.dockerjava.api.model.*;
+import com.github.dockerjava.core.RemoteApiVersion;
 import com.github.dockerjava.netty.AbstractNettyDockerClientTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
+import org.testng.SkipException;
 import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 
+import static com.github.dockerjava.utils.TestUtils.getVersion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -24,6 +27,11 @@ public class UpdateSwarmCmdExecTest extends AbstractNettyDockerClientTest {
     @BeforeTest
     public void beforeTest() throws Exception {
         super.beforeTest();
+
+        final RemoteApiVersion apiVersion = getVersion(dockerClient);
+        if (!apiVersion.isGreaterOrEqual(RemoteApiVersion.VERSION_1_24)) {
+            throw new SkipException("API version should be >= 1.24");
+        }
     }
 
     @AfterTest
@@ -93,11 +101,8 @@ public class UpdateSwarmCmdExecTest extends AbstractNettyDockerClientTest {
         SwarmSpec swarmSpec = new SwarmSpec()
                 .withName("swarm");
 
-        Swarm swarm = dockerClient.inspectSwarmCmd().exec();
-        LOG.info("Inspected swarm: {}", swarm.toString());
-
         dockerClient.updateSwarmCmd(swarmSpec)
-                .withVersion(swarm.getVersion().getIndex())
+                .withVersion(1l)
                 .exec();
     }
 

@@ -15,13 +15,12 @@ import java.lang.reflect.Method;
 
 import static com.github.dockerjava.utils.TestUtils.getVersion;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 @Test(groups = "integration")
-public class InitializeSwarmCmdExecTest extends AbstractNettyDockerClientTest {
+public class LeaveSwarmCmdExecTest extends AbstractNettyDockerClientTest {
 
-    public static final Logger LOG = LoggerFactory.getLogger(InitializeSwarmCmdExecTest.class);
+    public static final Logger LOG = LoggerFactory.getLogger(LeaveSwarmCmdExecTest.class);
 
     @BeforeTest
     public void beforeTest() throws Exception {
@@ -58,46 +57,33 @@ public class InitializeSwarmCmdExecTest extends AbstractNettyDockerClientTest {
         }
     }
 
-    public void initializeSwarm() throws DockerException {
-        SwarmSpec swarmSpec = new SwarmSpec()
-                .withName("swarm")
-                .withDispatcher(new SwarmDispatcher()
-                        .withHeartbeatPeriod(10000000)
-                ).withOrchestration(new SwarmOrchestration()
-                        .withTaskHistoryRententionLimit(100)
-                ).withCaConfig(new SwarmCAConfig()
-                        .withNodeCertExpiry(60 * 60 * 1000000000L /*ns */))
-                .withRaft(new SwarmRaft()
-                        .withElectionTick(8)
-                        .withSnapshotInterval(20000)
-                        .withHeartbeatTick(5)
-                        .withLogEntriesForSlowFollowers(200)
-                ).withTaskDefaults(new TaskDefaults());
-
+    public void leaveSwarmAsMaster() throws DockerException {
+        SwarmSpec swarmSpec = new SwarmSpec().withName("firstSpec");
         dockerClient.initializeSwarmCmd(swarmSpec)
                 .withListenAddr("127.0.0.1")
                 .exec();
         LOG.info("Initialized swarm: {}", swarmSpec.toString());
 
-        Swarm swarm = dockerClient.inspectSwarmCmd().exec();
-        LOG.info("Inspected swarm: {}", swarm.toString());
-        assertThat(swarm.getSpec(), is(equalTo(swarmSpec)));
+        Info info = dockerClient.infoCmd().exec();
+        LOG.info("Inspected docker: {}", info.toString());
+
+        assertThat(info.getSwarm().getLocalNodeState(), is(LocalNodeState.ACTIVE));
+
+        dockerClient.leaveSwarmCmd()
+                .withForceEnabled(true)
+                .exec();
+        LOG.info("Left swarm");
+
+        info = dockerClient.infoCmd().exec();
+        LOG.info("Inspected docker: {}", info.toString());
+
+        assertThat(info.getSwarm().getLocalNodeState(), is(LocalNodeState.INACTIVE));
+
     }
 
     @Test(expectedExceptions = NotAcceptableException.class)
-    public void initializingSwarmThrowsWhenAlreadyInSwarm() throws DockerException {
-        SwarmSpec swarmSpec = new SwarmSpec()
-                .withName("swarm");
-
-        dockerClient.initializeSwarmCmd(swarmSpec)
-                .withListenAddr("127.0.0.1")
-                .exec();
-        LOG.info("Initialized swarm: {}", swarmSpec.toString());
-
-        // Initializing a swarm if already in swarm mode should fail
-        dockerClient.initializeSwarmCmd(swarmSpec)
-                .withListenAddr("127.0.0.1")
-                .exec();
+    public void leavingSwarmThrowsWhenNotInSwarm() throws DockerException {
+        dockerClient.leaveSwarmCmd().exec();
     }
 
 }
