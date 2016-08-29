@@ -1,7 +1,6 @@
 package com.github.dockerjava.netty.exec;
 
 
-import com.github.dockerjava.api.command.InitializeSwarmCmd;
 import com.github.dockerjava.api.command.UpdateSwarmCmd;
 import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.netty.MediaType;

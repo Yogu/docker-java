@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
-import static javax.ws.rs.client.Entity.entity;
-
 public class LeaveSwarmCmdExec extends AbstrSyncDockerCmdExec<LeaveSwarmCmd, Void> implements LeaveSwarmCmd.Exec {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LeaveSwarmCmdExec.class);

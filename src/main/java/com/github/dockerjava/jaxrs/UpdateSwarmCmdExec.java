@@ -1,7 +1,6 @@
 package com.github.dockerjava.jaxrs;
 
 import com.github.dockerjava.api.command.UpdateSwarmCmd;
-import com.github.dockerjava.api.model.UpdateContainerResponse;
 import com.github.dockerjava.core.DockerClientConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
