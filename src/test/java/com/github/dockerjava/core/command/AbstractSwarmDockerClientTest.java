@@ -28,6 +28,8 @@ public abstract class AbstractSwarmDockerClientTest extends AbstractDockerClient
     private static final String NETWORK_NAME = "dind-network";
     private static final int MAX_CONNECT_ATTEMPTS = 5;
     private static final int CONNECT_ATTEMPT_INTERVAL = 200;
+    private static final String DOCKER_IN_DOCKER_IMAGE_REPOSITORY = "docker";
+    private static final String DOCKER_IN_DOCKER_IMAGE_TAG = "1.12-dind";
 
     public void beforeTest() throws Exception {
         super.beforeTest();
@@ -89,8 +91,14 @@ public abstract class AbstractSwarmDockerClientTest extends AbstractDockerClient
             }
         }
 
+        dockerClient.pullImageCmd(DOCKER_IN_DOCKER_IMAGE_REPOSITORY)
+                .withTag(DOCKER_IN_DOCKER_IMAGE_TAG)
+                .exec(new PullImageResultCallback())
+                .awaitSuccess();
+
         int port = PORT_START + (numberOfDockersInDocker - 1);
-        CreateContainerResponse response = dockerClient.createContainerCmd("docker:1.12-dind")
+        CreateContainerResponse response = dockerClient
+                .createContainerCmd(DOCKER_IN_DOCKER_IMAGE_REPOSITORY + ":" + DOCKER_IN_DOCKER_IMAGE_TAG)
                 .withPrivileged(true)
                 .withName(name)
                 .withNetworkMode(NETWORK_NAME)
