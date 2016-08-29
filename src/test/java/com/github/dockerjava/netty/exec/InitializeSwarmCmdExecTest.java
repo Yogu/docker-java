@@ -68,6 +68,7 @@ public class InitializeSwarmCmdExecTest extends AbstractNettySwarmDockerClientTe
 
         dockerClient.initializeSwarmCmd(swarmSpec)
                 .withListenAddr("127.0.0.1")
+                .withAdvertiseAddr("127.0.0.1")
                 .exec();
         LOG.info("Initialized swarm: {}", swarmSpec.toString());
 
@@ -83,6 +84,7 @@ public class InitializeSwarmCmdExecTest extends AbstractNettySwarmDockerClientTe
 
         dockerClient.initializeSwarmCmd(swarmSpec)
                 .withListenAddr("127.0.0.1")
+                .withAdvertiseAddr("127.0.0.1")
                 .exec();
         LOG.info("Initialized swarm: {}", swarmSpec.toString());
 

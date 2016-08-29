@@ -43,6 +43,7 @@ public class UpdateSwarmCmdExecTest extends AbstractNettySwarmDockerClientTest {
 
     @BeforeMethod
     public void beforeMethod(Method method) {
+        super.beforeMethod(method);
     }
 
     @AfterMethod
@@ -70,6 +71,7 @@ public class UpdateSwarmCmdExecTest extends AbstractNettySwarmDockerClientTest {
 
         dockerClient.initializeSwarmCmd(firstSpec)
                 .withListenAddr("127.0.0.1")
+                .withAdvertiseAddr("127.0.0.1")
                 .exec();
         LOG.info("Initialized swarm: {}", firstSpec.toString());
 
