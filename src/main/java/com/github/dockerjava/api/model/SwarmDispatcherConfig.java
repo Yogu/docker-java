@@ -1,5 +1,6 @@
 package com.github.dockerjava.api.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,32 +19,29 @@ import java.time.Duration;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SwarmCAConfig implements Serializable {
+public class SwarmDispatcherConfig implements Serializable {
 
     public static final Long serialVersionUID = 1L;
 
     /**
      * @since 1.24
      */
-    @JsonProperty("NodeCertExpiry")
-    private Duration nodeCertExpiry;
-
-    @JsonProperty("ExternalCAs")
-    private ExternalCA[] externalCA;
+    @JsonProperty("HeartbeatPeriod")
+    private Duration heartbeatPeriod;
 
     /**
-     * @see #nodeCertExpiry
+     * @see #heartbeatPeriod
      */
     @CheckForNull
-    public Duration getNodeCertExpiry() {
-        return nodeCertExpiry;
+    public Duration getHeartbeatPeriod() {
+        return heartbeatPeriod;
     }
 
     /**
-     * @see #nodeCertExpiry
+     * @see #heartbeatPeriod
      */
-    public SwarmCAConfig withNodeCertExpiry(Duration nodeCertExpiry) {
-        this.nodeCertExpiry = nodeCertExpiry;
+    public SwarmDispatcherConfig withHeartbeatPeriod(Duration heartbeatPeriod) {
+        this.heartbeatPeriod = heartbeatPeriod;
         return this;
     }
 

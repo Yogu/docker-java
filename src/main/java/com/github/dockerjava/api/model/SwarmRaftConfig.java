@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SwarmRaft implements Serializable {
+public class SwarmRaftConfig implements Serializable {
 
     public static final Long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class SwarmRaft implements Serializable {
      * @since 1.24
      */
     @JsonProperty("HeartbeatTick")
-    private long heartbeatTick;
+    private int heartbeatTick;
 
     /**
      * @since 1.24
@@ -43,7 +43,7 @@ public class SwarmRaft implements Serializable {
      * @since 1.24
      */
     @JsonProperty("ElectionTick")
-    private long electionTick;
+    private int electionTick;
 
     /**
      * @see #logEntriesForSlowFollowers
@@ -56,7 +56,7 @@ public class SwarmRaft implements Serializable {
     /**
      * @see #logEntriesForSlowFollowers
      */
-    public SwarmRaft withLogEntriesForSlowFollowers(long logEntriesForSlowFollowers) {
+    public SwarmRaftConfig withLogEntriesForSlowFollowers(long logEntriesForSlowFollowers) {
         this.logEntriesForSlowFollowers = logEntriesForSlowFollowers;
         return this;
     }
@@ -65,14 +65,14 @@ public class SwarmRaft implements Serializable {
      * @see #heartbeatTick
      */
     @CheckForNull
-    public long getHeartbeatTick() {
+    public int getHeartbeatTick() {
         return heartbeatTick;
     }
 
     /**
      * @see #heartbeatTick
      */
-    public SwarmRaft withHeartbeatTick(long heartbeatTick) {
+    public SwarmRaftConfig withHeartbeatTick(int heartbeatTick) {
         this.heartbeatTick = heartbeatTick;
         return this;
     }
@@ -88,7 +88,7 @@ public class SwarmRaft implements Serializable {
     /**
      * @see #snapshotInterval
      */
-    public SwarmRaft withSnapshotInterval(long snapshotInterval) {
+    public SwarmRaftConfig withSnapshotInterval(long snapshotInterval) {
         this.snapshotInterval = snapshotInterval;
         return this;
     }
@@ -97,14 +97,14 @@ public class SwarmRaft implements Serializable {
      * @see #electionTick
      */
     @CheckForNull
-    public long getElectionTick() {
+    public int getElectionTick() {
         return electionTick;
     }
 
     /**
      * @see #electionTick
      */
-    public SwarmRaft withElectionTick(long electionTick) {
+    public SwarmRaftConfig withElectionTick(int electionTick) {
         this.electionTick = electionTick;
         return this;
     }

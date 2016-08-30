@@ -4,9 +4,9 @@ import com.github.dockerjava.api.exception.DockerException;
 import com.github.dockerjava.api.exception.NotAcceptableException;
 import com.github.dockerjava.api.model.Swarm;
 import com.github.dockerjava.api.model.SwarmCAConfig;
-import com.github.dockerjava.api.model.SwarmDispatcher;
+import com.github.dockerjava.api.model.SwarmDispatcherConfig;
 import com.github.dockerjava.api.model.SwarmOrchestration;
-import com.github.dockerjava.api.model.SwarmRaft;
+import com.github.dockerjava.api.model.SwarmRaftConfig;
 import com.github.dockerjava.api.model.SwarmSpec;
 import com.github.dockerjava.api.model.TaskDefaults;
 import org.slf4j.Logger;
@@ -52,13 +52,13 @@ public class InitializeSwarmCmdExecTest extends AbstractSwarmDockerClientTest {
     public void initializeSwarm() throws DockerException {
         SwarmSpec swarmSpec = new SwarmSpec()
                 .withName("swarm")
-                .withDispatcher(new SwarmDispatcher()
+                .withDispatcher(new SwarmDispatcherConfig()
                         .withHeartbeatPeriod(10000000)
                 ).withOrchestration(new SwarmOrchestration()
                         .withTaskHistoryRententionLimit(100)
                 ).withCaConfig(new SwarmCAConfig()
                         .withNodeCertExpiry(60 * 60 * 1000000000L /*ns */))
-                .withRaft(new SwarmRaft()
+                .withRaft(new SwarmRaftConfig()
                         .withElectionTick(8)
                         .withSnapshotInterval(20000)
                         .withHeartbeatTick(5)

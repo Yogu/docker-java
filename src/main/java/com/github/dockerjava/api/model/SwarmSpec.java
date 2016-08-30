@@ -26,7 +26,7 @@ public class SwarmSpec implements Serializable {
      * @since 1.24
      */
     @JsonProperty("Dispatcher")
-    private SwarmDispatcher dispatcher;
+    private SwarmDispatcherConfig dispatcher;
 
     /**
      * @since 1.24
@@ -45,7 +45,7 @@ public class SwarmSpec implements Serializable {
      * @since 1.24
      */
     @JsonProperty("Raft")
-    private SwarmRaft raft;
+    private SwarmRaftConfig raft;
 
     /**
      * @since 1.24
@@ -63,14 +63,14 @@ public class SwarmSpec implements Serializable {
      * @see #dispatcher
      */
     @CheckForNull
-    public SwarmDispatcher getDispatcher() {
+    public SwarmDispatcherConfig getDispatcher() {
         return dispatcher;
     }
 
     /**
      * @see #dispatcher
      */
-    public SwarmSpec withDispatcher(SwarmDispatcher dispatcher) {
+    public SwarmSpec withDispatcher(SwarmDispatcherConfig dispatcher) {
         this.dispatcher = dispatcher;
         return this;
     }
@@ -111,14 +111,14 @@ public class SwarmSpec implements Serializable {
      * @see #raft
      */
     @CheckForNull
-    public SwarmRaft getRaft() {
+    public SwarmRaftConfig getRaft() {
         return raft;
     }
 
     /**
      * @see #raft
      */
-    public SwarmSpec withRaft(SwarmRaft raft) {
+    public SwarmSpec withRaft(SwarmRaftConfig raft) {
         this.raft = raft;
         return this;
     }
