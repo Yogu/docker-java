@@ -60,7 +60,6 @@ import com.github.dockerjava.api.command.TopContainerCmd;
 import com.github.dockerjava.api.command.UnpauseContainerCmd;
 import com.github.dockerjava.api.command.UpdateContainerCmd;
 import com.github.dockerjava.api.command.UpdateServiceCmd;
-import com.github.dockerjava.api.command.UpdateContainerCmd;
 import com.github.dockerjava.api.command.UpdateSwarmCmd;
 import com.github.dockerjava.api.command.VersionCmd;
 import com.github.dockerjava.api.command.WaitContainerCmd;
