@@ -1,61 +1,6 @@
 package com.github.dockerjava.api;
 
-import com.github.dockerjava.api.command.AttachContainerCmd;
-import com.github.dockerjava.api.command.AuthCmd;
-import com.github.dockerjava.api.command.BuildImageCmd;
-import com.github.dockerjava.api.command.CommitCmd;
-import com.github.dockerjava.api.command.ConnectToNetworkCmd;
-import com.github.dockerjava.api.command.ContainerDiffCmd;
-import com.github.dockerjava.api.command.CopyArchiveFromContainerCmd;
-import com.github.dockerjava.api.command.CopyArchiveToContainerCmd;
-import com.github.dockerjava.api.command.CopyFileFromContainerCmd;
-import com.github.dockerjava.api.command.CreateContainerCmd;
-import com.github.dockerjava.api.command.CreateImageCmd;
-import com.github.dockerjava.api.command.CreateNetworkCmd;
-import com.github.dockerjava.api.command.CreateServiceCmd;
-import com.github.dockerjava.api.command.CreateVolumeCmd;
-import com.github.dockerjava.api.command.DisconnectFromNetworkCmd;
-import com.github.dockerjava.api.command.EventsCmd;
-import com.github.dockerjava.api.command.ExecCreateCmd;
-import com.github.dockerjava.api.command.ExecStartCmd;
-import com.github.dockerjava.api.command.InfoCmd;
-import com.github.dockerjava.api.command.InspectContainerCmd;
-import com.github.dockerjava.api.command.InspectExecCmd;
-import com.github.dockerjava.api.command.InspectImageCmd;
-import com.github.dockerjava.api.command.InspectNetworkCmd;
-import com.github.dockerjava.api.command.InspectServiceCmd;
-import com.github.dockerjava.api.command.InspectVolumeCmd;
-import com.github.dockerjava.api.command.KillContainerCmd;
-import com.github.dockerjava.api.command.ListContainersCmd;
-import com.github.dockerjava.api.command.ListImagesCmd;
-import com.github.dockerjava.api.command.ListNetworksCmd;
-import com.github.dockerjava.api.command.ListServicesCmd;
-import com.github.dockerjava.api.command.ListVolumesCmd;
-import com.github.dockerjava.api.command.LoadImageCmd;
-import com.github.dockerjava.api.command.LogContainerCmd;
-import com.github.dockerjava.api.command.PauseContainerCmd;
-import com.github.dockerjava.api.command.PingCmd;
-import com.github.dockerjava.api.command.PullImageCmd;
-import com.github.dockerjava.api.command.PushImageCmd;
-import com.github.dockerjava.api.command.RemoveContainerCmd;
-import com.github.dockerjava.api.command.RemoveImageCmd;
-import com.github.dockerjava.api.command.RemoveNetworkCmd;
-import com.github.dockerjava.api.command.RemoveServiceCmd;
-import com.github.dockerjava.api.command.RemoveVolumeCmd;
-import com.github.dockerjava.api.command.RenameContainerCmd;
-import com.github.dockerjava.api.command.RestartContainerCmd;
-import com.github.dockerjava.api.command.SaveImageCmd;
-import com.github.dockerjava.api.command.SearchImagesCmd;
-import com.github.dockerjava.api.command.StartContainerCmd;
-import com.github.dockerjava.api.command.StatsCmd;
-import com.github.dockerjava.api.command.StopContainerCmd;
-import com.github.dockerjava.api.command.TagImageCmd;
-import com.github.dockerjava.api.command.TopContainerCmd;
-import com.github.dockerjava.api.command.UnpauseContainerCmd;
-import com.github.dockerjava.api.command.UpdateContainerCmd;
-import com.github.dockerjava.api.command.UpdateServiceCmd;
-import com.github.dockerjava.api.command.VersionCmd;
-import com.github.dockerjava.api.command.WaitContainerCmd;
+import com.github.dockerjava.api.command.*;
 import com.github.dockerjava.api.exception.DockerException;
 import com.github.dockerjava.api.model.AuthConfig;
 import com.github.dockerjava.api.model.Identifier;
@@ -98,11 +43,10 @@ public interface DockerClient extends Closeable {
 
     /**
      * Loads a tarball with a set of images and tags into a Docker repository.
-     *
+     * <p>
      * Corresponds to POST /images/load API endpoint.
      *
-     * @param imageStream
-     *            stream of the tarball file
+     * @param imageStream stream of the tarball file
      * @return created command
      * @since {@link RemoteApiVersion#VERSION_1_7}
      */
@@ -156,10 +100,8 @@ public interface DockerClient extends Closeable {
     /**
      * Copy resource from container to local machine.
      *
-     * @param containerId
-     *            id of the container
-     * @param resource
-     *            path to container's resource
+     * @param containerId id of the container
+     * @param resource    path to container's resource
      * @return created command
      * @since {@link RemoteApiVersion#VERSION_1_20}
      */
@@ -168,10 +110,8 @@ public interface DockerClient extends Closeable {
     /**
      * Copy resource from container to local machine.
      *
-     * @param containerId
-     *            id of the container
-     * @param resource
-     *            path to container's resource
+     * @param containerId id of the container
+     * @param resource    path to container's resource
      * @return created command
      * @see #copyArchiveFromContainerCmd(String, String)
      * @deprecated since docker API version 1.20, replaced by {@link #copyArchiveFromContainerCmd(String, String)}
@@ -183,8 +123,7 @@ public interface DockerClient extends Closeable {
     /**
      * Copy archive from local machine to remote container
      *
-     * @param containerId
-     *            id of the container
+     * @param containerId id of the container
      * @return created command
      * @since {@link RemoteApiVersion#VERSION_1_20}
      */
@@ -259,22 +198,23 @@ public interface DockerClient extends Closeable {
     /**
      * Command to list all services in a docker swarm. Only applicable if docker runs in swarm mode.
      *
-     * @since {@link RemoteApiVersion#VERSION_1_24}
      * @return command
+     * @since {@link RemoteApiVersion#VERSION_1_24}
      */
     ListServicesCmd listServicesCmd();
 
     /**
      * Command to create a service in a docker swarm. Only applicable if docker runs in swarm mode.
      *
-     * @since {@link RemoteApiVersion#VERSION_1_24}
      * @param serviceSpec the service specification
      * @return command
+     * @since {@link RemoteApiVersion#VERSION_1_24}
      */
     CreateServiceCmd createServiceCmd(ServiceSpec serviceSpec);
 
     /**
      * Command to inspect a service
+     *
      * @param serviceId service id or service name
      * @return command
      */
@@ -282,7 +222,8 @@ public interface DockerClient extends Closeable {
 
     /**
      * Command to update a service specification
-     * @param serviceId service id or service name
+     *
+     * @param serviceId   service id or service name
      * @param serviceSpec the new service specification
      * @return command
      */
@@ -290,10 +231,27 @@ public interface DockerClient extends Closeable {
 
     /**
      * Command to remove a service
+     *
      * @param serviceId service id or service name
      * @return command
      */
     RemoveServiceCmd removeServiceCmd(String serviceId);
+
+    /**
+     * Command to list all tasks in a docker swarm. Task operations require the engine to be part of a swarm.
+     *
+     * @return command
+     * @since {@link RemoteApiVersion#VERSION_1_24}
+     */
+    ListTasksCmd listTaskCmd();
+
+    /**
+     * Command to inspect a task. Task operations require the engine to be part of a swarm.
+     *
+     * @param taskId task id
+     * @return command
+     */
+    InspectTaskCmd inspectTaskCmd(String taskId);
 
     @Override
     void close() throws IOException;

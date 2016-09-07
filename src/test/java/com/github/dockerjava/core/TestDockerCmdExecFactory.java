@@ -1,67 +1,8 @@
 package com.github.dockerjava.core;
 
 import com.github.dockerjava.api.async.ResultCallback;
-import com.github.dockerjava.api.command.AttachContainerCmd;
+import com.github.dockerjava.api.command.*;
 import com.github.dockerjava.api.command.AuthCmd.Exec;
-import com.github.dockerjava.api.command.BuildImageCmd;
-import com.github.dockerjava.api.command.CommitCmd;
-import com.github.dockerjava.api.command.ConnectToNetworkCmd;
-import com.github.dockerjava.api.command.ContainerDiffCmd;
-import com.github.dockerjava.api.command.CopyArchiveFromContainerCmd;
-import com.github.dockerjava.api.command.CopyArchiveToContainerCmd;
-import com.github.dockerjava.api.command.CopyFileFromContainerCmd;
-import com.github.dockerjava.api.command.CreateContainerCmd;
-import com.github.dockerjava.api.command.CreateContainerResponse;
-import com.github.dockerjava.api.command.CreateImageCmd;
-import com.github.dockerjava.api.command.CreateImageResponse;
-import com.github.dockerjava.api.command.CreateNetworkCmd;
-import com.github.dockerjava.api.command.CreateNetworkResponse;
-import com.github.dockerjava.api.command.CreateServiceCmd;
-import com.github.dockerjava.api.command.CreateVolumeCmd;
-import com.github.dockerjava.api.command.CreateVolumeResponse;
-import com.github.dockerjava.api.command.DisconnectFromNetworkCmd;
-import com.github.dockerjava.api.command.DockerCmdExecFactory;
-import com.github.dockerjava.api.command.EventsCmd;
-import com.github.dockerjava.api.command.ExecCreateCmd;
-import com.github.dockerjava.api.command.ExecStartCmd;
-import com.github.dockerjava.api.command.InfoCmd;
-import com.github.dockerjava.api.command.InspectContainerCmd;
-import com.github.dockerjava.api.command.InspectExecCmd;
-import com.github.dockerjava.api.command.InspectImageCmd;
-import com.github.dockerjava.api.command.InspectNetworkCmd;
-import com.github.dockerjava.api.command.InspectServiceCmd;
-import com.github.dockerjava.api.command.InspectVolumeCmd;
-import com.github.dockerjava.api.command.KillContainerCmd;
-import com.github.dockerjava.api.command.ListContainersCmd;
-import com.github.dockerjava.api.command.ListImagesCmd;
-import com.github.dockerjava.api.command.ListNetworksCmd;
-import com.github.dockerjava.api.command.ListServicesCmd;
-import com.github.dockerjava.api.command.ListVolumesCmd;
-import com.github.dockerjava.api.command.LoadImageCmd;
-import com.github.dockerjava.api.command.LogContainerCmd;
-import com.github.dockerjava.api.command.PauseContainerCmd;
-import com.github.dockerjava.api.command.PingCmd;
-import com.github.dockerjava.api.command.PullImageCmd;
-import com.github.dockerjava.api.command.PushImageCmd;
-import com.github.dockerjava.api.command.RemoveContainerCmd;
-import com.github.dockerjava.api.command.RemoveImageCmd;
-import com.github.dockerjava.api.command.RemoveNetworkCmd;
-import com.github.dockerjava.api.command.RemoveServiceCmd;
-import com.github.dockerjava.api.command.RemoveVolumeCmd;
-import com.github.dockerjava.api.command.RenameContainerCmd;
-import com.github.dockerjava.api.command.RestartContainerCmd;
-import com.github.dockerjava.api.command.SaveImageCmd;
-import com.github.dockerjava.api.command.SearchImagesCmd;
-import com.github.dockerjava.api.command.StartContainerCmd;
-import com.github.dockerjava.api.command.StatsCmd;
-import com.github.dockerjava.api.command.StopContainerCmd;
-import com.github.dockerjava.api.command.TagImageCmd;
-import com.github.dockerjava.api.command.TopContainerCmd;
-import com.github.dockerjava.api.command.UnpauseContainerCmd;
-import com.github.dockerjava.api.command.UpdateContainerCmd;
-import com.github.dockerjava.api.command.UpdateServiceCmd;
-import com.github.dockerjava.api.command.VersionCmd;
-import com.github.dockerjava.api.command.WaitContainerCmd;
 import com.github.dockerjava.api.model.BuildResponseItem;
 
 import java.io.IOException;
@@ -309,7 +250,7 @@ public class TestDockerCmdExecFactory implements DockerCmdExecFactory {
     }
 
     @Override
-    public RenameContainerCmd.Exec createRenameContainerCmdExec(){
+    public RenameContainerCmd.Exec createRenameContainerCmdExec() {
         return delegate.createRenameContainerCmdExec();
     }
 
@@ -455,6 +396,16 @@ public class TestDockerCmdExecFactory implements DockerCmdExecFactory {
     @Override
     public RemoveServiceCmd.Exec createRemoveServiceCmdExec() {
         return delegate.createRemoveServiceCmdExec();
+    }
+
+    @Override
+    public ListTasksCmd.Exec createListTasksCmdExec() {
+        return delegate.createListTasksCmdExec();
+    }
+
+    @Override
+    public InspectTaskCmd.Exec createInspectTaskCmdExec() {
+        return delegate.createInspectTaskCmdExec();
     }
 
     public List<String> getContainerNames() {
