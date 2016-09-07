@@ -1,7 +1,7 @@
 package com.github.dockerjava.core;
 
 import com.github.dockerjava.api.async.ResultCallback;
-import com.github.dockerjava.api.command.AttachContainerCmd;
+import com.github.dockerjava.api.command.*;
 import com.github.dockerjava.api.command.AuthCmd.Exec;
 import com.github.dockerjava.api.command.BuildImageCmd;
 import com.github.dockerjava.api.command.CommitCmd;
@@ -485,6 +485,26 @@ public class TestDockerCmdExecFactory implements DockerCmdExecFactory {
     @Override
     public RemoveServiceCmd.Exec createRemoveServiceCmdExec() {
         return delegate.createRemoveServiceCmdExec();
+    }
+
+    @Override
+    public ListSwarmNodesCmd.Exec listSwarmNodeCmdExec() {
+        return delegate.listSwarmNodeCmdExec();
+    }
+
+    @Override
+    public InspectSwarmNodeCmd.Exec inspectSwarmNodeCmdExec() {
+        return delegate.inspectSwarmNodeCmdExec();
+    }
+
+    @Override
+    public RemoveSwarmNodeCmd.Exec removeSwarmNodeCmdExec() {
+        return delegate.removeSwarmNodeCmdExec();
+    }
+
+    @Override
+    public UpdateSwarmNodeCmd.Exec updateSwarmNodeCmdExec() {
+        return delegate.updateSwarmNodeCmdExec();
     }
 
     public List<String> getContainerNames() {

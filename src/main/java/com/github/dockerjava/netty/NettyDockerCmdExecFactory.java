@@ -1,5 +1,6 @@
 package com.github.dockerjava.netty;
 
+import com.github.dockerjava.api.command.*;
 import com.github.dockerjava.api.command.AttachContainerCmd;
 import com.github.dockerjava.api.command.AuthCmd;
 import com.github.dockerjava.api.command.BuildImageCmd;
@@ -65,6 +66,7 @@ import com.github.dockerjava.api.command.WaitContainerCmd;
 import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.core.DockerClientImpl;
 import com.github.dockerjava.core.SSLConfig;
+import com.github.dockerjava.netty.exec.*;
 import com.github.dockerjava.netty.exec.AttachContainerCmdExec;
 import com.github.dockerjava.netty.exec.AuthCmdExec;
 import com.github.dockerjava.netty.exec.BuildImageCmdExec;
@@ -156,14 +158,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Experimental implementation of {@link DockerCmdExecFactory} that supports http connection hijacking that is needed to pass STDIN to the
  * container.
- *
+ * <p>
  * To use it just pass an instance via {@link DockerClientImpl#withDockerCmdExecFactory(DockerCmdExecFactory)}
  *
+ * @author Marcus Linke
  * @see https://docs.docker.com/engine/reference/api/docker_remote_api_v1.21/#attach-to-a-container
  * @see https://docs.docker.com/engine/reference/api/docker_remote_api_v1.21/#exec-start
- *
- *
- * @author Marcus Linke
  */
 public class NettyDockerCmdExecFactory implements DockerCmdExecFactory {
 
@@ -638,6 +638,26 @@ public class NettyDockerCmdExecFactory implements DockerCmdExecFactory {
     @Override
     public RemoveServiceCmd.Exec createRemoveServiceCmdExec() {
         return new RemoveServiceCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public ListSwarmNodesCmd.Exec listSwarmNodeCmdExec() {
+        return new ListSwarmNodesCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public InspectSwarmNodeCmd.Exec inspectSwarmNodeCmdExec() {
+        return new InspectSwarmNodeCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public RemoveSwarmNodeCmd.Exec removeSwarmNodeCmdExec() {
+        return new RemoveSwarmNodeCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public UpdateSwarmNodeCmd.Exec updateSwarmNodeCmdExec() {
+        return new UpdateSwarmNodeCmdExec(getBaseResource(), getDockerClientConfig());
     }
 
     @Override

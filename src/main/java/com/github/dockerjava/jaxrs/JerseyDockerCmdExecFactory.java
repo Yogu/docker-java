@@ -97,6 +97,34 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.github.dockerjava.api.command.*;
+import com.github.dockerjava.api.exception.DockerClientException;
+import com.github.dockerjava.core.DockerClientConfig;
+import com.github.dockerjava.core.SSLConfig;
+import com.github.dockerjava.jaxrs.filter.JsonClientFilter;
+import com.github.dockerjava.jaxrs.filter.ResponseStatusExceptionFilter;
+import com.github.dockerjava.jaxrs.filter.SelectiveLoggingFilter;
+import org.apache.http.config.RegistryBuilder;
+import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.socket.PlainConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.glassfish.jersey.CommonProperties;
+import org.glassfish.jersey.apache.connector.ApacheClientProperties;
+import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.net.ssl.SSLContext;
+import javax.ws.rs.client.*;
+import java.io.IOException;
+import java.net.*;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 //import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
 // see https://github.com/docker-java/docker-java/issues/196
@@ -269,7 +297,7 @@ public class JerseyDockerCmdExecFactory implements DockerCmdExecFactory {
     }
 
     private org.apache.http.config.Registry<ConnectionSocketFactory> getSchemeRegistry(final URI originalUri,
-            SSLContext sslContext) {
+                                                                                       SSLContext sslContext) {
         RegistryBuilder<ConnectionSocketFactory> registryBuilder = RegistryBuilder.create();
         registryBuilder.register("http", PlainConnectionSocketFactory.getSocketFactory());
         if (sslContext != null) {
@@ -548,6 +576,26 @@ public class JerseyDockerCmdExecFactory implements DockerCmdExecFactory {
     public DisconnectFromNetworkCmd.Exec createDisconnectFromNetworkCmdExec() {
 
         return new DisconnectFromNetworkCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public ListSwarmNodesCmd.Exec listSwarmNodeCmdExec() {
+        return new ListSwarmNodesCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public InspectSwarmNodeCmd.Exec inspectSwarmNodeCmdExec() {
+        return new InspectSwarmNodeCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public RemoveSwarmNodeCmd.Exec removeSwarmNodeCmdExec() {
+        return new RemoveSwarmNodeCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public UpdateSwarmNodeCmd.Exec updateSwarmNodeCmdExec() {
+        return new UpdateSwarmNodeCmdExec(getBaseResource(), getDockerClientConfig());
     }
 
     @Override
