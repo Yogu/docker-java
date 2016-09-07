@@ -579,7 +579,7 @@ public class DockerClientImpl implements Closeable, DockerClient {
 
     @Override
     public UpdateSwarmNodeCmd updateSwarmNodeCmd(String nodeId, SwarmNodeSpec swarmNodeSpec) {
-        return new UpdateSwarmNodeCmdImpl(getDockerCmdExecFactory().updateSwarmNodeCmdExec(),nodeId,swarmNodeSpec);
+        return new UpdateSwarmNodeCmdImpl(getDockerCmdExecFactory().updateSwarmNodeCmdExec(), nodeId, swarmNodeSpec);
     }
 
     @Override
