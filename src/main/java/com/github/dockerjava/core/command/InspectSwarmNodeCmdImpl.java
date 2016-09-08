@@ -1,12 +1,10 @@
 package com.github.dockerjava.core.command;
 
-import com.github.dockerjava.api.command.DockerCmdSyncExec;
 import com.github.dockerjava.api.command.InspectSwarmNodeCmd;
 import com.github.dockerjava.api.exception.NotFoundException;
 import com.github.dockerjava.api.model.SwarmNode;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -37,8 +35,7 @@ public class InspectSwarmNodeCmdImpl extends AbstrDockerCmd<InspectSwarmNodeCmd,
     }
 
     /**
-     * @throws NotFoundException
-     *             No such swarmNode
+     * @throws NotFoundException No such swarmNode
      */
     @Override
     public SwarmNode exec() throws NotFoundException {

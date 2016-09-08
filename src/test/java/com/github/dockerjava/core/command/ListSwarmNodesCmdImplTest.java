@@ -1,5 +1,8 @@
 package com.github.dockerjava.core.command;
 
+import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.model.Swarm;
+import com.github.dockerjava.api.model.SwarmJoinTokens;
 import com.github.dockerjava.api.model.SwarmNode;
 import com.github.dockerjava.api.model.SwarmSpec;
 import org.slf4j.Logger;
@@ -36,8 +39,24 @@ public class ListSwarmNodesCmdImplTest extends AbstractSwarmDockerClientTest {
 
     @Test
     public void listSwarmNodes() {
-        dockerClient.initializeSwarmCmd(new SwarmSpec()).withListenAddr("127.0.0.1").exec();
+
+        LOG.info("Initialized swarm docker1");
+        DockerClient docker1 = startDockerInDocker();
+        DockerClient docker2 = startDockerInDocker();
+
+        docker1.initializeSwarmCmd(new SwarmSpec()).withListenAddr("127.0.0.1").exec();
+        Swarm swarm = docker1.inspectSwarmCmd().exec();
+
+        SwarmJoinTokens tokens = swarm.getJoinTokens();
+        docker2.joinSwarmCmd()
+                .withRemoteAddrs(new String[]{"docker1"})
+                .withJoinToken(tokens.getManager())
+                .exec();
+        LOG.info("docker2 joined docker1's swarm");
 
         List<SwarmNode> swarmNodes = dockerClient.listSwarmNodesCmd().exec();
+
+        System.out.println(swarmNodes.size());
     }
+
 }
