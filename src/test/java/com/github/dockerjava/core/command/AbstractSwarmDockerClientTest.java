@@ -8,6 +8,9 @@ import com.github.dockerjava.api.exception.NotFoundException;
 import com.github.dockerjava.api.model.ExposedPort;
 import com.github.dockerjava.api.model.PortBinding;
 import com.github.dockerjava.api.model.Ports;
+import com.github.dockerjava.api.model.Swarm;
+import com.github.dockerjava.api.model.SwarmJoinTokens;
+import com.github.dockerjava.api.model.SwarmSpec;
 import com.github.dockerjava.client.AbstractDockerClientTest;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
@@ -119,6 +122,46 @@ public abstract class AbstractSwarmDockerClientTest extends AbstractDockerClient
         return DockerClientBuilder.getInstance(config)
                 .withDockerCmdExecFactory(initTestDockerCmdExecFactory())
                 .build();
+    }
+
+    public DockerClient setUpSwarmNodes() {
+        DockerClient docker1 = startDockerInDocker();
+        DockerClient docker2 = startDockerInDocker();
+        DockerClient docker3 = startDockerInDocker();
+        DockerClient docker4 = startDockerInDocker();
+        DockerClient docker5 = startDockerInDocker();
+
+        SwarmSpec swarmSpec = new SwarmSpec().withName("testSwarmSpec");
+
+        docker1.initializeSwarmCmd(swarmSpec).exec();
+        Swarm swarm = docker1.inspectSwarmCmd().exec();
+
+        SwarmJoinTokens tokens = swarm.getJoinTokens();
+        docker2.joinSwarmCmd()
+                .withRemoteAddrs(new String[]{"docker1"})
+                .withJoinToken(tokens.getManager())
+                .exec();
+        LOG.info("docker2 joined docker1's swarm");
+
+        docker3.joinSwarmCmd()
+                .withRemoteAddrs(new String[]{"docker1"})
+                .withJoinToken(tokens.getManager())
+                .exec();
+        LOG.info("docker3 joined docker1's swarm");
+
+        docker4.joinSwarmCmd()
+                .withRemoteAddrs(new String[]{"docker1"})
+                .withJoinToken(tokens.getManager())
+                .exec();
+        LOG.info("docker4 joined docker1's swarm");
+
+        docker5.joinSwarmCmd()
+                .withRemoteAddrs(new String[]{"docker1"})
+                .withJoinToken(tokens.getManager())
+                .exec();
+        LOG.info("docker5 joined docker1's swarm");
+
+        return docker1;
     }
 
     private void leaveIfInSwarm() {

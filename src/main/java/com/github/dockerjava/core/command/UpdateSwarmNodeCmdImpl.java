@@ -22,9 +22,20 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class UpdateSwarmNodeCmdImpl extends AbstrDockerCmd<UpdateSwarmNodeCmd, Void>
         implements UpdateSwarmNodeCmd {
 
+    /**
+     * @since 1.24
+     */
     private String swarmNodeId;
 
+    /**
+     * @since 1.24
+     */
     private SwarmNodeSpec swarmNodeSpec;
+
+    /**
+     * @since 1.24
+     */
+    private Long version;
 
     public UpdateSwarmNodeCmdImpl(Exec exec, String swarmNodeId, SwarmNodeSpec swarmNodeSpec) {
         super(exec);
@@ -63,6 +74,22 @@ public class UpdateSwarmNodeCmdImpl extends AbstrDockerCmd<UpdateSwarmNodeCmd, V
         checkNotNull(swarmNodeSpec.getAvailability(), "Availability in SwarmNodeSpec was not specified");
         checkNotNull(swarmNodeSpec.getRole(), "Role in SwarmNodeSpec was not specified");
         this.swarmNodeSpec = swarmNodeSpec;
+        return this;
+    }
+
+    /**
+     * @see #version
+     */
+    @CheckForNull
+    public Long getVersion() {
+        return version;
+    }
+
+    /**
+     * @see #version
+     */
+    public UpdateSwarmNodeCmdImpl withVersion(Long version) {
+        this.version = version;
         return this;
     }
 

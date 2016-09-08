@@ -4,6 +4,9 @@ import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.model.Swarm;
 import com.github.dockerjava.api.model.SwarmJoinTokens;
 import com.github.dockerjava.api.model.SwarmNode;
+import com.github.dockerjava.api.model.SwarmNodeAvailability;
+import com.github.dockerjava.api.model.SwarmNodeRole;
+import com.github.dockerjava.api.model.SwarmNodeSpec;
 import com.github.dockerjava.api.model.SwarmSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +14,10 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Test(groups = "swarm-integration")
 public class ListSwarmNodesCmdImplTest extends AbstractSwarmDockerClientTest {
@@ -40,23 +46,39 @@ public class ListSwarmNodesCmdImplTest extends AbstractSwarmDockerClientTest {
     @Test
     public void listSwarmNodes() {
 
-        LOG.info("Initialized swarm docker1");
-        DockerClient docker1 = startDockerInDocker();
-        DockerClient docker2 = startDockerInDocker();
+        DockerClient docker = setUpSwarmNodes();
+        List<SwarmNode> swarmNodes = docker.listSwarmNodesCmd().exec();
+        assertEquals(swarmNodes.size(), 5);
+        String testId = swarmNodes.get(0).getId();
 
-        docker1.initializeSwarmCmd(new SwarmSpec()).withListenAddr("127.0.0.1").exec();
-        Swarm swarm = docker1.inspectSwarmCmd().exec();
+        // update SwarmNode for testing of filteringMethods
+        Map<String, String> labels = new HashMap<>();
+        labels.put("testLabel", "testLabelKey");
+        docker.updateSwarmNodeCmd(testId, new SwarmNodeSpec().withAvailability(SwarmNodeAvailability.ACTIVE).withLabels(labels).withName("testNode").withRole(SwarmNodeRole.MANAGER)).withVersion(swarmNodes.get(0).getVersion().getIndex()).exec();
 
-        SwarmJoinTokens tokens = swarm.getJoinTokens();
-        docker2.joinSwarmCmd()
-                .withRemoteAddrs(new String[]{"docker1"})
-                .withJoinToken(tokens.getManager())
-                .exec();
-        LOG.info("docker2 joined docker1's swarm");
 
-        List<SwarmNode> swarmNodes = dockerClient.listSwarmNodesCmd().exec();
+        swarmNodes = docker.listSwarmNodesCmd().exec();
 
-        System.out.println(swarmNodes.size());
+
+        List<String> ids = new ArrayList<>();
+        ids.add(testId);
+
+        // test id filter
+        List<SwarmNode> filteredNodes = docker.listSwarmNodesCmd().withIdFilter(ids).exec();
+        assertEquals(filteredNodes.size(), 1);
+        String wrongId = "NOID";
+        ids.clear();
+        ids.add(wrongId);
+        filteredNodes = docker.listSwarmNodesCmd().withIdFilter(ids).exec();
+        assertEquals(filteredNodes.isEmpty(), true);
+
+        // TODO test memberShipFilter
+
+        // testNameFilter
+        List<String> names = new ArrayList<>();
+        names.add(swarmNodes.get(0).getSpec().getName());
+        filteredNodes = docker.listSwarmNodesCmd().withNameFilter(names).exec();
+        assertEquals(filteredNodes.size(), 1);
     }
 
 }
