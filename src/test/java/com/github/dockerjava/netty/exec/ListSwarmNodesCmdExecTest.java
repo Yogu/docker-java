@@ -1,17 +1,21 @@
-package com.github.dockerjava.core.command;
+package com.github.dockerjava.netty.exec;
+
 
 import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.model.Swarm;
-import com.github.dockerjava.api.model.SwarmJoinTokens;
 import com.github.dockerjava.api.model.SwarmNode;
 import com.github.dockerjava.api.model.SwarmNodeAvailability;
 import com.github.dockerjava.api.model.SwarmNodeRole;
 import com.github.dockerjava.api.model.SwarmNodeSpec;
-import com.github.dockerjava.api.model.SwarmSpec;
+import com.github.dockerjava.netty.AbstractNettySwarmDockerClientTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+import org.testng.collections.Lists;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -20,8 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 @Test(groups = "swarm-integration")
-public class ListSwarmNodesCmdImplTest extends AbstractSwarmDockerClientTest {
-    public static final Logger LOG = LoggerFactory.getLogger(ListSwarmNodesCmdImplTest.class);
+public class ListSwarmNodesCmdExecTest extends AbstractNettySwarmDockerClientTest {
+    public static final Logger LOG = LoggerFactory.getLogger(ListSwarmNodesCmdExecTest.class);
 
     @BeforeTest
     public void beforeTest() throws Exception {
@@ -79,6 +83,11 @@ public class ListSwarmNodesCmdImplTest extends AbstractSwarmDockerClientTest {
         names.add(swarmNodes.get(0).getSpec().getName());
         filteredNodes = docker.listSwarmNodesCmd().withNameFilter(names).exec();
         assertEquals(filteredNodes.size(), 1);
+
+        // testRoleFilter
+        filteredNodes = docker.listSwarmNodesCmd().withRoleFilter(Lists.newArrayList(swarmNodes.get(0).getSpec().getRole().name())).exec();
+        assertEquals(filteredNodes.size(), 1);
+
     }
 
 }
