@@ -29,6 +29,7 @@ import com.github.dockerjava.api.command.InspectNetworkCmd;
 import com.github.dockerjava.api.command.InspectServiceCmd;
 import com.github.dockerjava.api.command.InspectSwarmCmd;
 import com.github.dockerjava.api.command.InspectSwarmNodeCmd;
+import com.github.dockerjava.api.command.InspectTaskCmd;
 import com.github.dockerjava.api.command.InspectVolumeCmd;
 import com.github.dockerjava.api.command.JoinSwarmCmd;
 import com.github.dockerjava.api.command.KillContainerCmd;
@@ -38,6 +39,7 @@ import com.github.dockerjava.api.command.ListImagesCmd;
 import com.github.dockerjava.api.command.ListNetworksCmd;
 import com.github.dockerjava.api.command.ListServicesCmd;
 import com.github.dockerjava.api.command.ListSwarmNodesCmd;
+import com.github.dockerjava.api.command.ListTasksCmd;
 import com.github.dockerjava.api.command.ListVolumesCmd;
 import com.github.dockerjava.api.command.LoadImageCmd;
 import com.github.dockerjava.api.command.LogContainerCmd;
@@ -99,6 +101,7 @@ import com.github.dockerjava.core.command.InspectImageCmdImpl;
 import com.github.dockerjava.core.command.InspectServiceCmdImpl;
 import com.github.dockerjava.core.command.InspectSwarmCmdImpl;
 import com.github.dockerjava.core.command.InspectSwarmNodeCmdImpl;
+import com.github.dockerjava.core.command.InspectTaskCmdImpl;
 import com.github.dockerjava.core.command.InspectVolumeCmdImpl;
 import com.github.dockerjava.core.command.JoinSwarmCmdImpl;
 import com.github.dockerjava.core.command.KillContainerCmdImpl;
@@ -108,6 +111,7 @@ import com.github.dockerjava.core.command.ListImagesCmdImpl;
 import com.github.dockerjava.core.command.ListNetworksCmdImpl;
 import com.github.dockerjava.core.command.ListServicesCmdImpl;
 import com.github.dockerjava.core.command.ListSwarmNodesCmdImpl;
+import com.github.dockerjava.core.command.ListTasksCmdImpl;
 import com.github.dockerjava.core.command.ListVolumesCmdImpl;
 import com.github.dockerjava.core.command.LoadImageCmdImpl;
 import com.github.dockerjava.core.command.LogContainerCmdImpl;
@@ -581,6 +585,16 @@ public class DockerClientImpl implements Closeable, DockerClient {
     @Override
     public UpdateSwarmNodeCmd updateSwarmNodeCmd(String nodeId, SwarmNodeSpec swarmNodeSpec) {
         return new UpdateSwarmNodeCmdImpl(getDockerCmdExecFactory().updateSwarmNodeCmdExec(), nodeId, swarmNodeSpec);
+    }
+
+    @Override
+    public ListTasksCmd listTaskCmd() {
+        return new ListTasksCmdImpl(getDockerCmdExecFactory().createListTasksCmdExec());
+    }
+
+    @Override
+    public InspectTaskCmd inspectTaskCmd(String taskId) {
+        return new InspectTaskCmdImpl(getDockerCmdExecFactory().createInspectTaskCmdExec(), taskId);
     }
 
     @Override

@@ -28,6 +28,7 @@ import com.github.dockerjava.api.command.InspectNetworkCmd;
 import com.github.dockerjava.api.command.InspectServiceCmd;
 import com.github.dockerjava.api.command.InspectSwarmCmd;
 import com.github.dockerjava.api.command.InspectSwarmNodeCmd;
+import com.github.dockerjava.api.command.InspectTaskCmd;
 import com.github.dockerjava.api.command.InspectVolumeCmd;
 import com.github.dockerjava.api.command.JoinSwarmCmd;
 import com.github.dockerjava.api.command.KillContainerCmd;
@@ -37,6 +38,7 @@ import com.github.dockerjava.api.command.ListImagesCmd;
 import com.github.dockerjava.api.command.ListNetworksCmd;
 import com.github.dockerjava.api.command.ListServicesCmd;
 import com.github.dockerjava.api.command.ListSwarmNodesCmd;
+import com.github.dockerjava.api.command.ListTasksCmd;
 import com.github.dockerjava.api.command.ListVolumesCmd;
 import com.github.dockerjava.api.command.LoadImageCmd;
 import com.github.dockerjava.api.command.LogContainerCmd;
@@ -96,6 +98,7 @@ import com.github.dockerjava.netty.exec.InspectNetworkCmdExec;
 import com.github.dockerjava.netty.exec.InspectServiceCmdExec;
 import com.github.dockerjava.netty.exec.InspectSwarmCmdExec;
 import com.github.dockerjava.netty.exec.InspectSwarmNodeCmdExec;
+import com.github.dockerjava.netty.exec.InspectTaskCmdExec;
 import com.github.dockerjava.netty.exec.InspectVolumeCmdExec;
 import com.github.dockerjava.netty.exec.JoinSwarmCmdExec;
 import com.github.dockerjava.netty.exec.KillContainerCmdExec;
@@ -105,6 +108,7 @@ import com.github.dockerjava.netty.exec.ListImagesCmdExec;
 import com.github.dockerjava.netty.exec.ListNetworksCmdExec;
 import com.github.dockerjava.netty.exec.ListServicesCmdExec;
 import com.github.dockerjava.netty.exec.ListSwarmNodesCmdExec;
+import com.github.dockerjava.netty.exec.ListTasksCmdExec;
 import com.github.dockerjava.netty.exec.ListVolumesCmdExec;
 import com.github.dockerjava.netty.exec.LoadImageCmdExec;
 import com.github.dockerjava.netty.exec.LogContainerCmdExec;
@@ -164,12 +168,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Experimental implementation of {@link DockerCmdExecFactory} that supports http connection hijacking that is needed to pass STDIN to the
  * container.
- * <p>
+ *
  * To use it just pass an instance via {@link DockerClientImpl#withDockerCmdExecFactory(DockerCmdExecFactory)}
  *
- * @author Marcus Linke
  * @see https://docs.docker.com/engine/reference/api/docker_remote_api_v1.21/#attach-to-a-container
  * @see https://docs.docker.com/engine/reference/api/docker_remote_api_v1.21/#exec-start
+ *
+ *
+ * @author Marcus Linke
  */
 public class NettyDockerCmdExecFactory implements DockerCmdExecFactory {
 
@@ -664,6 +670,16 @@ public class NettyDockerCmdExecFactory implements DockerCmdExecFactory {
     @Override
     public UpdateSwarmNodeCmd.Exec updateSwarmNodeCmdExec() {
         return new UpdateSwarmNodeCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public ListTasksCmd.Exec createListTasksCmdExec() {
+        return new ListTasksCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public InspectTaskCmd.Exec createInspectTaskCmdExec() {
+        return new InspectTaskCmdExec(getBaseResource(), getDockerClientConfig());
     }
 
     @Override

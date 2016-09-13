@@ -190,8 +190,19 @@ public interface DockerCmdExecFactory extends Closeable {
      */
     UpdateSwarmNodeCmd.Exec updateSwarmNodeCmdExec();
 
+    /**
+     * Command to list tasks in a docker swarm. Task operations require the engine to be part of a swarm.
+     *
+     * @since {@link RemoteApiVersion#VERSION_1_24}
+     */
+    ListTasksCmd.Exec createListTasksCmdExec();
 
-
+    /**
+     * Command to inspect a task in a docker swarm. Task operations require the engine to be part of a swarm.
+     *
+     * @since {@link RemoteApiVersion#VERSION_1_24}
+     */
+    InspectTaskCmd.Exec createInspectTaskCmdExec();
 
     @Override
     void close() throws IOException;

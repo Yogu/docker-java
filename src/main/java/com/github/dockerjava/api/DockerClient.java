@@ -27,6 +27,7 @@ import com.github.dockerjava.api.command.InspectNetworkCmd;
 import com.github.dockerjava.api.command.InspectServiceCmd;
 import com.github.dockerjava.api.command.InspectSwarmCmd;
 import com.github.dockerjava.api.command.InspectSwarmNodeCmd;
+import com.github.dockerjava.api.command.InspectTaskCmd;
 import com.github.dockerjava.api.command.InspectVolumeCmd;
 import com.github.dockerjava.api.command.JoinSwarmCmd;
 import com.github.dockerjava.api.command.KillContainerCmd;
@@ -36,6 +37,7 @@ import com.github.dockerjava.api.command.ListImagesCmd;
 import com.github.dockerjava.api.command.ListNetworksCmd;
 import com.github.dockerjava.api.command.ListServicesCmd;
 import com.github.dockerjava.api.command.ListSwarmNodesCmd;
+import com.github.dockerjava.api.command.ListTasksCmd;
 import com.github.dockerjava.api.command.ListVolumesCmd;
 import com.github.dockerjava.api.command.LoadImageCmd;
 import com.github.dockerjava.api.command.LogContainerCmd;
@@ -71,6 +73,7 @@ import com.github.dockerjava.api.model.Identifier;
 import com.github.dockerjava.api.model.ServiceSpec;
 import com.github.dockerjava.api.model.SwarmNodeSpec;
 import com.github.dockerjava.api.model.SwarmSpec;
+import com.github.dockerjava.api.model.ServiceSpec;
 import com.github.dockerjava.core.RemoteApiVersion;
 
 import javax.annotation.Nonnull;
@@ -381,6 +384,22 @@ public interface DockerClient extends Closeable {
      * @since {@link RemoteApiVersion#VERSION_1_24}
      */
     UpdateSwarmNodeCmd updateSwarmNodeCmd(String nodeId, SwarmNodeSpec swarmNodeSpec);
+
+    /**
+     * Command to list all tasks in a docker swarm. Task operations require the engine to be part of a swarm.
+     *
+     * @return command
+     * @since {@link RemoteApiVersion#VERSION_1_24}
+     */
+    ListTasksCmd listTaskCmd();
+
+    /**
+     * Command to inspect a task. Task operations require the engine to be part of a swarm.
+     *
+     * @param taskId task id
+     * @return command
+     */
+    InspectTaskCmd inspectTaskCmd(String taskId);
 
     @Override
     void close() throws IOException;

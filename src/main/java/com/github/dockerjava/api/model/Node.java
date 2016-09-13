@@ -7,11 +7,14 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import java.io.Serializable;
+
 /**
  * A node as returned by the /events API, for instance, when Swarm is used.
  */
 @JsonInclude(Include.NON_NULL)
-public class Node {
+public class Node implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @JsonProperty("Name")
     private String name;

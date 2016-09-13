@@ -29,6 +29,7 @@ import com.github.dockerjava.api.command.InspectNetworkCmd;
 import com.github.dockerjava.api.command.InspectServiceCmd;
 import com.github.dockerjava.api.command.InspectSwarmCmd;
 import com.github.dockerjava.api.command.InspectSwarmNodeCmd;
+import com.github.dockerjava.api.command.InspectTaskCmd;
 import com.github.dockerjava.api.command.InspectVolumeCmd;
 import com.github.dockerjava.api.command.JoinSwarmCmd;
 import com.github.dockerjava.api.command.KillContainerCmd;
@@ -38,6 +39,7 @@ import com.github.dockerjava.api.command.ListImagesCmd;
 import com.github.dockerjava.api.command.ListNetworksCmd;
 import com.github.dockerjava.api.command.ListServicesCmd;
 import com.github.dockerjava.api.command.ListSwarmNodesCmd;
+import com.github.dockerjava.api.command.ListTasksCmd;
 import com.github.dockerjava.api.command.ListVolumesCmd;
 import com.github.dockerjava.api.command.LoadImageCmd;
 import com.github.dockerjava.api.command.LogContainerCmd;
@@ -273,7 +275,7 @@ public class JerseyDockerCmdExecFactory implements DockerCmdExecFactory {
     }
 
     private org.apache.http.config.Registry<ConnectionSocketFactory> getSchemeRegistry(final URI originalUri,
-                                                                                       SSLContext sslContext) {
+            SSLContext sslContext) {
         RegistryBuilder<ConnectionSocketFactory> registryBuilder = RegistryBuilder.create();
         registryBuilder.register("http", PlainConnectionSocketFactory.getSocketFactory());
         if (sslContext != null) {
@@ -622,6 +624,16 @@ public class JerseyDockerCmdExecFactory implements DockerCmdExecFactory {
     @Override
     public RemoveServiceCmd.Exec createRemoveServiceCmdExec() {
         return new RemoveServiceCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public ListTasksCmd.Exec createListTasksCmdExec() {
+        return new ListTasksCmdExec(getBaseResource(), getDockerClientConfig());
+    }
+
+    @Override
+    public InspectTaskCmd.Exec createInspectTaskCmdExec() {
+        return new InspectTaskCmdExec(getBaseResource(), getDockerClientConfig());
     }
 
     @Override
