@@ -1,12 +1,11 @@
-package com.github.dockerjava.netty.exec;
+package com.github.dockerjava.core.command;
+
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.model.SwarmNode;
 import com.github.dockerjava.api.model.SwarmNodeAvailability;
-import com.github.dockerjava.api.model.SwarmNodeManagerStatus;
 import com.github.dockerjava.api.model.SwarmNodeRole;
 import com.github.dockerjava.api.model.SwarmNodeSpec;
-import com.github.dockerjava.netty.AbstractNettySwarmDockerClientTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
@@ -19,9 +18,8 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.util.List;
 
-public class InspectSwarmNodeCmdExecTest extends AbstractNettySwarmDockerClientTest {
-
-    public static final Logger LOG = LoggerFactory.getLogger(InspectSwarmNodeCmdExecTest.class);
+public class RemoveSwarmNodeCmdExecTest extends AbstractSwarmDockerClientTest {
+    public static final Logger LOG = LoggerFactory.getLogger(RemoveSwarmNodeCmdExecTest.class);
 
     @BeforeTest
     public void beforeTest() throws Exception {
@@ -44,14 +42,19 @@ public class InspectSwarmNodeCmdExecTest extends AbstractNettySwarmDockerClientT
     }
 
     @Test
-    public void inspectSwarmNode() {
+    public void removeSwarmNode() {
         DockerClient docker = setUpSwarmNodes();
+
         List<SwarmNode> swarmNodes = docker.listSwarmNodesCmd().exec();
-        docker.updateSwarmNodeCmd(swarmNodes.get(0).getId(), new SwarmNodeSpec().withName("testNode").withAvailability(SwarmNodeAvailability.ACTIVE).withRole(SwarmNodeRole.MANAGER)).withVersion(swarmNodes.get(0).getVersion().getIndex()).exec();
 
-        SwarmNode testNode = docker.inspectSwarmNodeCmd(docker.listSwarmNodesCmd().exec().get(0).getId()).exec();
+        //node must be worker so it can be removed
+        docker.updateSwarmNodeCmd(swarmNodes.get(1).getId(), new SwarmNodeSpec().withName("remove").withRole(SwarmNodeRole.WORKER).withAvailability(SwarmNodeAvailability.PAUSE)).withVersion(swarmNodes.get(1).getVersion().getIndex()).exec();
 
+        assertEquals(swarmNodes.size(), 5);
 
-        assertEquals(testNode.getSpec().getName(), "testNode");
+        docker.removeSwarmNodeCmd(swarmNodes.get(1).getId()).exec();
+
+        assertEquals(swarmNodes.size(), 4);
+
     }
 }

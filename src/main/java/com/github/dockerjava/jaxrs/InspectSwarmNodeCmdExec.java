@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
-public class InspectSwarmNodeCmdExec extends AbstrSyncDockerCmdExec<InspectSwarmNodeCmd, SwarmNode>
+public class    InspectSwarmNodeCmdExec extends AbstrSyncDockerCmdExec<InspectSwarmNodeCmd, SwarmNode>
         implements InspectSwarmNodeCmd.Exec {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InspectSwarmNodeCmdExec.class);

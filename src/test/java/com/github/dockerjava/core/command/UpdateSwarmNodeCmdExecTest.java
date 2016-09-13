@@ -1,12 +1,11 @@
-package com.github.dockerjava.netty.exec;
+package com.github.dockerjava.core.command;
+
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.model.SwarmNode;
 import com.github.dockerjava.api.model.SwarmNodeAvailability;
-import com.github.dockerjava.api.model.SwarmNodeManagerStatus;
 import com.github.dockerjava.api.model.SwarmNodeRole;
 import com.github.dockerjava.api.model.SwarmNodeSpec;
-import com.github.dockerjava.netty.AbstractNettySwarmDockerClientTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
@@ -19,9 +18,8 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.util.List;
 
-public class InspectSwarmNodeCmdExecTest extends AbstractNettySwarmDockerClientTest {
-
-    public static final Logger LOG = LoggerFactory.getLogger(InspectSwarmNodeCmdExecTest.class);
+public class UpdateSwarmNodeCmdExecTest extends AbstractSwarmDockerClientTest {
+    public static final Logger LOG = LoggerFactory.getLogger(UpdateSwarmNodeCmdExecTest.class);
 
     @BeforeTest
     public void beforeTest() throws Exception {
@@ -44,14 +42,20 @@ public class InspectSwarmNodeCmdExecTest extends AbstractNettySwarmDockerClientT
     }
 
     @Test
-    public void inspectSwarmNode() {
+    public void updateSwarmNode() {
         DockerClient docker = setUpSwarmNodes();
+
         List<SwarmNode> swarmNodes = docker.listSwarmNodesCmd().exec();
+
+        assertEquals(docker.inspectSwarmNodeCmd(swarmNodes.get(0).getId()).exec().getSpec().getName(), null);
+
         docker.updateSwarmNodeCmd(swarmNodes.get(0).getId(), new SwarmNodeSpec().withName("testNode").withAvailability(SwarmNodeAvailability.ACTIVE).withRole(SwarmNodeRole.MANAGER)).withVersion(swarmNodes.get(0).getVersion().getIndex()).exec();
 
         SwarmNode testNode = docker.inspectSwarmNodeCmd(docker.listSwarmNodesCmd().exec().get(0).getId()).exec();
 
 
         assertEquals(testNode.getSpec().getName(), "testNode");
+        assertEquals(testNode.getSpec().getAvailability(), SwarmNodeAvailability.ACTIVE);
+        assertEquals(testNode.getSpec().getRole(), SwarmNodeRole.MANAGER);
     }
 }
