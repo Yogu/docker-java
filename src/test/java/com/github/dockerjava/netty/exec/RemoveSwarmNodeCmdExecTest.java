@@ -49,11 +49,14 @@ public class RemoveSwarmNodeCmdExecTest extends AbstractNettySwarmDockerClientTe
         List<SwarmNode> swarmNodes = docker.listSwarmNodesCmd().exec();
 
         //node must be worker so it can be removed
-        docker.updateSwarmNodeCmd(swarmNodes.get(1).getId(), new SwarmNodeSpec().withName("remove").withRole(SwarmNodeRole.WORKER).withAvailability(SwarmNodeAvailability.PAUSE)).withVersion(swarmNodes.get(1).getVersion().getIndex()).exec();
+        docker.updateSwarmNodeCmd(swarmNodes.get(1).getId(), new SwarmNodeSpec().withName("remove").withRole(SwarmNodeRole.WORKER).withAvailability(SwarmNodeAvailability.ACTIVE)).withVersion(swarmNodes.get(1).getVersion().getIndex()).exec();
 
         assertEquals(swarmNodes.size(), 5);
 
-        docker.removeSwarmNodeCmd(swarmNodes.get(1).getId()).exec();
+
+        docker.removeSwarmNodeCmd(swarmNodes.get(1).getId()).withForce(true).exec();
+
+        swarmNodes = docker.listSwarmNodesCmd().exec();
 
         assertEquals(swarmNodes.size(), 4);
 
