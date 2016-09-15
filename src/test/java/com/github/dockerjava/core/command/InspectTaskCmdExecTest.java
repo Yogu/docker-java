@@ -1,8 +1,11 @@
 package com.github.dockerjava.core.command;
 
 
-import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.model.ContainerSpec;
+import com.github.dockerjava.api.model.ServiceSpec;
+import com.github.dockerjava.api.model.SwarmSpec;
 import com.github.dockerjava.api.model.Task;
+import com.github.dockerjava.api.model.TaskSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
@@ -41,11 +44,19 @@ public class InspectTaskCmdExecTest extends AbstractSwarmDockerClientTest {
     @Test
     public void inspectSwarmNode() {
 
-        DockerClient docker = setUpSwarmNodes();
+        dockerClient.initializeSwarmCmd(new SwarmSpec()).withListenAddr("127.0.0.1").exec();
 
-        List<Task> tasks = docker.listTaskCmd().exec();
+        dockerClient.createServiceCmd(new ServiceSpec()
+                .withName("testService")
+                .withTaskTemplate(new TaskSpec()
+                        .withContainerSpec(new ContainerSpec()
+                                .withImage("busybox"))))
+                .exec();
 
-        Task task = docker.inspectTaskCmd(tasks.get(0).getId()).exec();
+        List<Task> tasks = dockerClient.listTaskCmd().exec();
 
+        Task task = dockerClient.inspectTaskCmd(tasks.get(0).getId()).exec();
+
+        assertNotNull(task.getId());
     }
 }

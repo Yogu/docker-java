@@ -1,7 +1,10 @@
 package com.github.dockerjava.netty.exec;
 
-import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.model.ContainerSpec;
+import com.github.dockerjava.api.model.ServiceSpec;
+import com.github.dockerjava.api.model.SwarmSpec;
 import com.github.dockerjava.api.model.Task;
+import com.github.dockerjava.api.model.TaskSpec;
 import com.github.dockerjava.netty.AbstractNettySwarmDockerClientTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,11 +44,18 @@ public class ListTasksCmdExecTest extends AbstractNettySwarmDockerClientTest {
     @Test
     public void listSwarmNodes() {
 
-        DockerClient docker = setUpSwarmNodes();
+        dockerClient.initializeSwarmCmd(new SwarmSpec()).withListenAddr("127.0.0.1").exec();
 
-        List<Task> tasks = docker.listTaskCmd().exec();
+        dockerClient.createServiceCmd(new ServiceSpec()
+                .withName("testService")
+                .withTaskTemplate(new TaskSpec()
+                        .withContainerSpec(new ContainerSpec()
+                                .withImage("busybox"))))
+                .exec();
 
-        assertEquals(tasks.size(), 5);
+        List<Task> tasks = dockerClient.listTaskCmd().exec();
+
+        assertEquals(tasks.size(), 1);
 
     }
 }

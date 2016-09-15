@@ -12,7 +12,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import javax.annotation.CheckForNull;
 import java.io.Serializable;
-import java.sql.Time;
+import java.util.Date;
 
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
@@ -27,7 +27,7 @@ public class TaskStatus implements Serializable {
      * @since 1.24
      */
     @JsonProperty("Timestamp")
-    private Time timestamp;
+    private Date timestamp;
 
     /**
      * @since 1.24
@@ -57,14 +57,14 @@ public class TaskStatus implements Serializable {
      * @see #timestamp
      */
     @CheckForNull
-    public Time getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
     /**
      * @see #timestamp
      */
-    public TaskStatus withTimestamp(Time timestamp) {
+    public TaskStatus withTimestamp(Date timestamp) {
         this.timestamp = timestamp;
         return this;
     }
