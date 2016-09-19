@@ -55,5 +55,8 @@ public class StatsNoStreamCmdExecTest extends AbstractSwarmDockerClientTest {
 
         Statistics stats = dockerClient.statsNoStreamCmd(container.getId()).exec();
 
+        LOG.info("Got stats {}", stats);
+        assertFalse(stats.getMemoryStats().isEmpty());
+
     }
 }
