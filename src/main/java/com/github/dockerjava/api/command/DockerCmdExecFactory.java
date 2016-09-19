@@ -1,10 +1,11 @@
 package com.github.dockerjava.api.command;
 
-import java.io.Closeable;
-import java.io.IOException;
-
 import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.core.RemoteApiVersion;
+import com.github.dockerjava.netty.exec.StatsNoStreamCmd;
+
+import java.io.Closeable;
+import java.io.IOException;
 
 public interface DockerCmdExecFactory extends Closeable {
 
@@ -96,6 +97,11 @@ public interface DockerCmdExecFactory extends Closeable {
     EventsCmd.Exec createEventsCmdExec();
 
     StatsCmd.Exec createStatsCmdExec();
+
+    /**
+     * Command to list stats of a container. Stream queryParameter is set to false.
+     */
+    StatsNoStreamCmd.Exec createStatsNoStreamCmdExec();
 
     CreateVolumeCmd.Exec createCreateVolumeCmdExec();
 

@@ -75,6 +75,7 @@ import com.github.dockerjava.core.SSLConfig;
 import com.github.dockerjava.jaxrs.filter.JsonClientFilter;
 import com.github.dockerjava.jaxrs.filter.ResponseStatusExceptionFilter;
 import com.github.dockerjava.jaxrs.filter.SelectiveLoggingFilter;
+import com.github.dockerjava.netty.exec.StatsNoStreamCmd;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
@@ -500,6 +501,9 @@ public class JerseyDockerCmdExecFactory implements DockerCmdExecFactory {
     public StatsCmd.Exec createStatsCmdExec() {
         return new StatsCmdExec(getBaseResource(), getDockerClientConfig());
     }
+
+    @Override
+    public StatsNoStreamCmd.Exec createStatsNoStreamCmdExec() { return new StatsNoStreamCmdExec(getBaseResource(), getDockerClientConfig());}
 
     @Override
     public CreateVolumeCmd.Exec createCreateVolumeCmdExec() {

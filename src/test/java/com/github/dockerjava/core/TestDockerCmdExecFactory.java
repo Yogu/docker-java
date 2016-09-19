@@ -74,6 +74,7 @@ import com.github.dockerjava.api.command.UpdateSwarmNodeCmd;
 import com.github.dockerjava.api.command.VersionCmd;
 import com.github.dockerjava.api.command.WaitContainerCmd;
 import com.github.dockerjava.api.model.BuildResponseItem;
+import com.github.dockerjava.netty.exec.StatsNoStreamCmd;
 
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -362,6 +363,11 @@ public class TestDockerCmdExecFactory implements DockerCmdExecFactory {
     @Override
     public StatsCmd.Exec createStatsCmdExec() {
         return delegate.createStatsCmdExec();
+    }
+
+    @Override
+    public StatsNoStreamCmd.Exec createStatsNoStreamCmdExec() {
+        return delegate.createStatsNoStreamCmdExec();
     }
 
     @Override

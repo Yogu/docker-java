@@ -75,6 +75,7 @@ import com.github.dockerjava.api.model.SwarmNodeSpec;
 import com.github.dockerjava.api.model.SwarmSpec;
 import com.github.dockerjava.api.model.ServiceSpec;
 import com.github.dockerjava.core.RemoteApiVersion;
+import com.github.dockerjava.netty.exec.StatsNoStreamCmd;
 
 import javax.annotation.Nonnull;
 import java.io.Closeable;
@@ -243,6 +244,14 @@ public interface DockerClient extends Closeable {
     EventsCmd eventsCmd();
 
     StatsCmd statsCmd(String containerId);
+
+    /**
+     * Command to return stats of a container with stream-parameter set to false
+     *
+     * @param containerId container id or container name
+     * @return command
+     */
+    StatsNoStreamCmd statsNoStreamCmd(String containerId);
 
     CreateVolumeCmd createVolumeCmd();
 
