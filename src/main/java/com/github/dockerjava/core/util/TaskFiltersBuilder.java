@@ -1,9 +1,12 @@
 package com.github.dockerjava.core.util;
 
-import com.github.dockerjava.api.model.TaskState;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Representation of filters to task lists.

@@ -73,7 +73,6 @@ import com.github.dockerjava.api.model.Identifier;
 import com.github.dockerjava.api.model.ServiceSpec;
 import com.github.dockerjava.api.model.SwarmNodeSpec;
 import com.github.dockerjava.api.model.SwarmSpec;
-import com.github.dockerjava.api.model.ServiceSpec;
 import com.github.dockerjava.core.RemoteApiVersion;
 import com.github.dockerjava.netty.exec.StatsNoStreamCmd;
 
