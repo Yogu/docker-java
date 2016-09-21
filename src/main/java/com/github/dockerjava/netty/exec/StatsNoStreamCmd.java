@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 /**
  * Get container stats with no-stream property
  */
-public interface StatsNoStreamCmd extends SyncDockerCmd<Statistics>{
+public interface StatsNoStreamCmd extends SyncDockerCmd<Statistics> {
 
     @CheckForNull
     String getContainerId();

@@ -276,7 +276,7 @@ public class JerseyDockerCmdExecFactory implements DockerCmdExecFactory {
     }
 
     private org.apache.http.config.Registry<ConnectionSocketFactory> getSchemeRegistry(final URI originalUri,
-            SSLContext sslContext) {
+                                                                                       SSLContext sslContext) {
         RegistryBuilder<ConnectionSocketFactory> registryBuilder = RegistryBuilder.create();
         registryBuilder.register("http", PlainConnectionSocketFactory.getSocketFactory());
         if (sslContext != null) {
@@ -503,7 +503,9 @@ public class JerseyDockerCmdExecFactory implements DockerCmdExecFactory {
     }
 
     @Override
-    public StatsNoStreamCmd.Exec createStatsNoStreamCmdExec() { return new StatsNoStreamCmdExec(getBaseResource(), getDockerClientConfig());}
+    public StatsNoStreamCmd.Exec createStatsNoStreamCmdExec() {
+        return new StatsNoStreamCmdExec(getBaseResource(), getDockerClientConfig());
+    }
 
     @Override
     public CreateVolumeCmd.Exec createCreateVolumeCmdExec() {
