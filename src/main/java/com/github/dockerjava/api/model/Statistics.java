@@ -49,6 +49,11 @@ public class Statistics implements Serializable {
     @JsonProperty("precpu_stats")
     private Map<String, Object> precpuStats;
 
+    @CheckForNull
+    public String getRead() {
+        return read;
+    }
+
     /**
      * @since Docker Remote API 1.21
      */
