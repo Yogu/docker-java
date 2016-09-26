@@ -9,7 +9,6 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import javax.annotation.CheckForNull;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
@@ -40,12 +39,6 @@ public class ServiceSpec implements Serializable {
      */
     @JsonProperty("UpdateConfig")
     private UpdateConfig updateConfig;
-
-    /**
-     * @since 1.24
-     */
-    @JsonProperty("Configs")
-    private List<NetworkAttachmentConfig> networks;
 
     /**
      * @since 1.24
@@ -113,22 +106,6 @@ public class ServiceSpec implements Serializable {
      */
     public ServiceSpec withUpdateConfig(UpdateConfig updateConfig) {
         this.updateConfig = updateConfig;
-        return this;
-    }
-
-    /**
-     * @see #networks
-     */
-    @CheckForNull
-    public List<NetworkAttachmentConfig> getNetworks() {
-        return networks;
-    }
-
-    /**
-     * @see #networks
-     */
-    public ServiceSpec withNetworks(List<NetworkAttachmentConfig> networks) {
-        this.networks = networks;
         return this;
     }
 

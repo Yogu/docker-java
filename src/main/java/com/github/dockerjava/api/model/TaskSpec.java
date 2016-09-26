@@ -9,6 +9,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import javax.annotation.CheckForNull;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @since {@link RemoteApiVersion#VERSION_1_24}
@@ -39,6 +40,12 @@ public class TaskSpec implements Serializable {
      */
     @JsonProperty("Placement")
     private ServicePlacement placement;
+
+    /**
+     * @since 1.24
+     */
+    @JsonProperty("Networks")
+    private List<NetworkAttachmentConfig> networks;
 
     /**
      * @since 1.24
@@ -107,6 +114,22 @@ public class TaskSpec implements Serializable {
      */
     public TaskSpec withPlacement(ServicePlacement placement) {
         this.placement = placement;
+        return this;
+    }
+
+    /**
+     * @see #networks
+     */
+    @CheckForNull
+    public List<NetworkAttachmentConfig> getNetworks() {
+        return networks;
+    }
+
+    /**
+     * @see #networks
+     */
+    public TaskSpec withNetworks(List<NetworkAttachmentConfig> networks) {
+        this.networks = networks;
         return this;
     }
 
